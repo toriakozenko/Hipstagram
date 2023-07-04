@@ -12,7 +12,8 @@ function SignUp() {
 
   const state = useSelector((state) => state.promise);
   const { status, payload } = state.login || {};
-
+  console.log('state', state)
+  
   const dispatch = useDispatch();
 
 
@@ -27,12 +28,12 @@ function SignUp() {
   }
 
 
-  useEffect(() => {
-    if (payload && payload.errors && payload.errors.length > 0) {
-      // console.log('error')
-    }
+  // useEffect(() => {
+  //   if (payload && payload.errors && payload.errors.length > 0) {
+  //     console.log('error');
+  //   }
 
-  }, [payload]);
+  // }, [payload]);
 
 
   const navigate = useNavigate();
@@ -53,10 +54,9 @@ function SignUp() {
       navigate("/");
     }
 
-     if(status==='FULFILLED' && !payload){
+     if(status==='FULFILLED' && payload === null){
       alert(`User with this username and password does not exist! Try again!`);
     }
-
   }
 
   return (
@@ -66,7 +66,7 @@ function SignUp() {
       <input id="login" type="text" placeholder="Email" onChange={listenLoginInputChange}/>
       <input id="password" type="password" placeholder="Password" onChange={listenPasswordInputChange} />
       <button type='submit' disabled={buttonDisabled} >Sign In</button>
-      <button  >Logout</button>
+      {/* <button  >Logout</button> */}
     </form>
 
     <div className='login-container'>

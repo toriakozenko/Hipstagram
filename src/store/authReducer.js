@@ -1,4 +1,5 @@
 import { actionLogin, actionRegister } from "../api";
+import jwt_decode from "jwt-decode";
 
 
 export function authReducer(state = {}, {type, token}) {
@@ -7,7 +8,7 @@ export function authReducer(state = {}, {type, token}) {
   }
   
   if (type === 'AUTH_LOGIN') {
-    const payload = jwtDecode(token);
+    const payload =  jwt_decode(token);
     if (payload) {
       return {
         token, 
@@ -23,23 +24,14 @@ export function authReducer(state = {}, {type, token}) {
 }
 
 
-const jwtDecode = (token) => {
-  try {
-    let split = token.split('.', 2);
-    return JSON.parse(atob(split[1]));
-  } catch (e) {
-    alert('Ты не зарегистрирован ');
-  }
-};
-
-const actionAuthLogin = (token) => {
+export const actionAuthLogin = (token) => {
   return {
     type: 'AUTH_LOGIN', 
     token
  }
 };
 
-const actionAuthLogout = ()=> {
+export const actionAuthLogout = ()=> {
   return {
     type: 'AUTH_LOGOUT'
   };

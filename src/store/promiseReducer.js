@@ -9,3 +9,4 @@ export function promiseReducer(state = {}, {type, status, payload, error, name})
     ...state
   };
 }
+

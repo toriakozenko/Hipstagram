@@ -1,32 +1,46 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionRootCategories } from '../api/index.js';
-import { Link } from "react-router-dom";
+import { actionAllPosts } from '../api/index.js';
+// import { Link } from "react-router-dom";
 
 
 
 
-function HomePage() {
+
+const HomePage = () => {
   
-   const dispatch = useDispatch();
-    const rootCategories = useSelector(state => state.promise.RootCategories);
-    const { status, payload } = rootCategories || {};
-    
-    // console.log(rootCategories);
+    const posts = useSelector(state => state.promise.posts);
+    console.log('posts', posts)
+    const { status, payload } = posts || {};
+
+    const dispatch = useDispatch();
 
     useEffect(()=>{
-      dispatch(actionRootCategories())
+        dispatch(actionAllPosts())
     }, [dispatch]);
-
-    // console.log(payload);
-
+    
   return (
-    status === "PENDING" || !status ?
-    <div>lala</div> :
-    <div className="aside">{
-        payload.map(item => <Link key={item._id} to={`/category/${item._id}`} >{item.name}</Link>)
-    }
-    </div>
+    status === "FULFILLED" && payload ?
+    <div>lala</div>  : 
+    <div className="aside"> {
+      payload &&
+      payload.data &&
+      payload.data.PostFind && 
+      payload.data.PostFind.length &&
+      payload.data.PostFind.map(item => (
+          <div className="post-card" key={item._id}>
+              <h3>{item._id}</h3>
+              {/* <h3>{item.title}</h3>
+              <h3>{item.text}</h3>
+              <h3>{item.owner._id}</h3>
+              {item.images && item.images.length ? <div> 
+                  {item.images.map((image) => <img src={`${API_URL}/${image?.url}`} alt="post" />
+                  )}
+              </div> : null} */}
+          </div>)
+      )
+  }
+  </div>
   )
 }
 
