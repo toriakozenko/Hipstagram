@@ -9,7 +9,7 @@ function getGql (endpoint){
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
-        ...(localStorage.authToken  ? {authorization : "Bearer " + localStorage.authToken} : {})
+        ...(localStorage.authToken  ? {Authorization : "Bearer " + localStorage.authToken} : {})
       },
       body: JSON.stringify({query, variables}),
       

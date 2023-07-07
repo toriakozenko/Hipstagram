@@ -27,14 +27,24 @@ export const actionRegister = (login, password, nick) =>
       gql(`query posts($q: String) {
           PostFind(query: $q) {
             _id
+            createdAt
             title
             text
+            likesCount
             owner {
-              _id
+              login
+              avatar {
+                url
+              }
             }
             images {
-              _id
               url
+            }
+            comments {
+              text
+              owner {
+                login
+              }
             }
           }
         }`, { q: "[{},{\"sort\":[{\"_id\":-1}]}]" })

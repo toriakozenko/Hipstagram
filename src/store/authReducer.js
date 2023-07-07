@@ -48,9 +48,9 @@ export const actionFullLogin = (login, password) => {
 };
   
 
-export const actionFullRegister = (login, password, nick) => {
+export const actionFullRegister = (login, password) => {
   return async dispatch => {
-    await dispatch(actionRegister(login, password, nick));
+    await dispatch(actionRegister(login, password));
     dispatch(actionFullLogin(login, password));
   }
 };

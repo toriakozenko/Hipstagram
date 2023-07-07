@@ -4,7 +4,9 @@ export function localStoredReducer(originalReducer, localStorageKey) {
       try {
         return JSON.parse(localStorage[localStorageKey]);
       }
-      catch(error){};   
+      catch(error){
+        console.log(error)
+      };   
     }
     const stateNew = originalReducer(state, action);
     localStorage[localStorageKey] = JSON.stringify(stateNew);
