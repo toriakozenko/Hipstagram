@@ -18,6 +18,7 @@ export function authReducer(state = {}, {type, token}) {
   }
 
   if (type === 'AUTH_LOGOUT') {
+    // delete.auth
     return {};
   }
   return state;

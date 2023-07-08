@@ -1,12 +1,14 @@
+import Aside from "./components/aside/Aside";
 import Home from "./components/home/Home";
-import PostCard from "../../pages/homepage/PostCard";
 
 // import SignIn from '../authorization/components/signIn/SignIn';
 
 function HomePage() {
     return ( 
-
-<Home />
+    <div style={{display:'flex', width: '100%'}}>
+     <Aside />
+      <Home />
+    </div>
       
   );
 }

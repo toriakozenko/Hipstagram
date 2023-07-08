@@ -55,12 +55,16 @@ export const actionRegister = (login, password, nick) =>
   
 
     
-    export const actionAllUsers = () =>
-    actionPromise('users', 
-    gql (`query posts($q: String) {
-      UserFind(query: $q) {
-          _id
-           nick 
+    export const actionOneUser = (id) =>
+    actionPromise('oneUser', 
+    gql (`query oneUser($q: String) {
+      UserFindOne(query: $q) {
+        _id
+        login
+        nick
+        avatar {
+          url
+        }
       }
-    }`, {q: "[{}]"}));
+    }`, {q: `[{ "_id": "${id}" }]`}));
   
