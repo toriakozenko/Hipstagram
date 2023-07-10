@@ -12,7 +12,6 @@ const Home = () => {
    
     const posts = useSelector(state => state.promise.posts);
     const { status, payload } = posts || {};
-    console.log('posts', posts );
     const dispatch = useDispatch();
 
     useEffect(()=>{

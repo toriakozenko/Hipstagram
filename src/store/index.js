@@ -8,7 +8,6 @@ import { localStoredReducer } from "./localStoredReducer";
 const reducer = combineReducers({
     promise: promiseReducer,
     auth: localStoredReducer(authReducer),
-    // cart: localStoredReducer(cartReducer), 
 });
 
 const store = configureStore({

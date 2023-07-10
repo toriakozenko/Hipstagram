@@ -9,7 +9,6 @@ import CommentsList from "./CommentsList";
 
 
 function PostSmall({post}) {
-  console.log('post', post)
 
   return (
     <li className="post-card" key={post._id}>
@@ -38,17 +37,20 @@ function PostSmall({post}) {
 				</div>
 
 				<div className='likes'>
-					<p>{post.likesCount ?? 0} likes</p> 
+					<span>{post.likesCount ?? 0} likes</span> 
 				</div>
 
 				<div className='post-text'>
-					<p className="post-owner">{post.owner.login}</p>
-					<p > {post.text}</p>
+					<div className="post-text-wrapper">
+						<span className="post-owner">{post.owner.login}</span>
+						<span >{post.title}</span>
+					</div>
+					<p> {post.text}</p>
 				</div>
 			</div>
 
 			<div className="comments">
-				<CommentsList comments={post.comments}/>
+				<CommentsList comments={post.comments} />
 			</div>
     </li>
    );

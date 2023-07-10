@@ -5,7 +5,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Comment from './Comment';
 
 function CommentsList({comments}) {
-  console.log('comments', comments)
   return ( 
   
     comments && comments.length ? 
@@ -16,7 +15,7 @@ function CommentsList({comments}) {
     <AccordionDetails>
     {comments && comments.length ? 
       comments.map(comment => (
-        <Comment comment={comment} />
+        <Comment comment={comment} /> 
       ))
       : null}
     </AccordionDetails>

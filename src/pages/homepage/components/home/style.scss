@@ -273,22 +273,29 @@
 
     .post-text {
       display: flex;
+      flex-direction: column;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
       width: 100%;
       max-width: 350px;
 
-      .post-owner {
-        margin-right: 8px;
-        font-weight: bold;
-        font-size: 14px;
-        line-height: 18px;
-        color: #262626;
-        padding-left: 6px;
-        text-align: start;
+      .post-text-wrapper {
+        margin-bottom: 10px;
 
+        .post-owner {
+          margin-right: 8px;
+          font-weight: bold;
+          font-size: 14px;
+          line-height: 18px;
+          color: #262626;
+          padding-left: 6px;
+          text-align: start;
+        }
       }
+        p {
+          padding-left: 6px;
+        }
     }
   }
   

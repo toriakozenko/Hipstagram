@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { actionEditPost, actionOneUser } from "../../../api"
+import {  actionUserPosts } from "../../../api"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { CircularProgress } from "@mui/material";
@@ -8,17 +8,17 @@ import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import './style.scss';
 
 
-function Profile() {
+function UserPost() {
   const { userId } = useParams();
     const dispatch = useDispatch();
-    const oneUser = useSelector(state => state.promise.oneUser);
+    const userPosts = useSelector(state => state.promise.userPosts);
     const state = useSelector(state => state);
     console.log('state', state);
-    const { status, payload } = oneUser || {};
+    const { status, payload } = userPosts || {};
     console.log('payload', payload)
 
     useEffect(()=>{
-      dispatch(actionOneUser(userId))
+      dispatch(actionUserPosts(userId))
   }, [userId, dispatch]);
 
     return (
@@ -28,11 +28,9 @@ function Profile() {
       {
         payload ?
         <div className="profile-container">
-          {payload.avatar ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : (<img className="avatar" src={noAvatarPhoto} alt="no avatar" />)}
-          <span>{payload.login}</span>
-          {payload.followers && payload.followers.length ? (payload.followers.map(item => item.login)) : '0 followers'}
-          {payload.following && payload.following.length ? (payload.following.map(item => item.login)) : '0 following'}
-
+          {/* {payload.avatar ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : (<img className="avatar" src={noAvatarPhoto} alt="no avatar" />)}
+          <span>{payload.login}</span> */}
+          <span>Work</span>
           
         </div>  
           : null
@@ -41,4 +39,4 @@ function Profile() {
     )
 }
 
-export default Profile;
+export default UserPost;
