@@ -1,17 +1,17 @@
-import { API_URL } from "../../../../constants/Api_Graphql";
-import postSettings from '../../../../assets/images/icons/HomePage/post-settings.svg';
-import iconComment from '../../../../assets/images/icons/HomePage/icon-comment.svg';
-import iconShare from '../../../../assets/images/icons/HomePage/icon-share.svg';
-import iconLike from '../../../../assets/images/icons/HomePage/icon-like.svg';
-import noImagePhoto from '../../../../assets/images/icons/HomePage/no-image.png';
-import noAvatarPhoto from '../../../../assets/images/icons/HomePage/no-avatar.svg';
+import { API_URL } from "../../../constants/Api_Graphql";
+import postSettings from '../../../assets/images/icons/HomePage/post-settings.svg';
+import iconComment from '../../../assets/images/icons/HomePage/icon-comment.svg';
+import iconShare from '../../../assets/images/icons/HomePage/icon-share.svg';
+import iconLike from '../../../assets/images/icons/HomePage/icon-like.svg';
+import noImagePhoto from '../../../assets/images/icons/HomePage/no-image.png';
+import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import CommentsList from "./CommentsList";
 
 
 function PostSmall({post}) {
 
   return (
-    <li className="post-card" key={post._id}>
+    <li className="post-card" >
 			<div className="info">
 				<div className="left-content">
 					{post.owner.avatar ? (<img className="avatar" src={`${API_URL}/${post?.owner?.avatar?.url}`} alt="avatar" />) : (<img className="avatar" src={noAvatarPhoto} alt="no avatar" />)}
@@ -23,11 +23,19 @@ function PostSmall({post}) {
 			</div>
 
 			<div className='photo-container'>
-				{post.images && post.images.length ?  
-				<>{post.images.map((image) => (<img className="post-image" src={`${API_URL}/${image?.url}`} alt="post" key={image._id} />)
+				{post.images && post.images.length ? (
+					<>
+						{post.images.map((image) => (
+							<img className="post-image"
+								src={`${image?.url !== null && image?.url !== "null" ? `${API_URL}/${image?.url}` : noImagePhoto}`}
+								alt={image?.url !== null && image?.url !== "null" ? "post" : "no post"}
+								key={image._id}
+							/>
+						))}
+					</>) : (<img className="post-image" src={noImagePhoto} alt="no post"/>
 				)}
-				</> : <img className="post-image" src={noImagePhoto} alt="no post" />} 
 			</div>
+
 
 			<div className="post-actions">
 				<div className="reaction-wrapper">
@@ -43,7 +51,7 @@ function PostSmall({post}) {
 				<div className='post-text'>
 					<div className="post-text-wrapper">
 						<span className="post-owner">{post.owner.login}</span>
-						<span >{post.title}</span>
+						<span>{post.title}</span>
 					</div>
 					<p> {post.text}</p>
 				</div>

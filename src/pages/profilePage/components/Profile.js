@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { actionEditPost, actionOneUser } from "../../../api"
+import {  actionOneUser } from "../../../api"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { CircularProgress } from "@mui/material";
@@ -17,27 +17,37 @@ function Profile() {
     const { status, payload } = oneUser || {};
     console.log('payload', payload)
 
-    useEffect(()=>{
+    useEffect(() => {
       dispatch(actionOneUser(userId))
   }, [userId, dispatch]);
 
     return (
       status === "PENDING" || !payload ? <CircularProgress />
       : 
-    (<div>
-      {
+      (
         payload ?
         <div className="profile-container">
-          {payload.avatar ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : (<img className="avatar" src={noAvatarPhoto} alt="no avatar" />)}
-          <span>{payload.login}</span>
-          {payload.followers && payload.followers.length ? (payload.followers.map(item => item.login)) : '0 followers'}
-          {payload.following && payload.following.length ? (payload.following.map(item => item.login)) : '0 following'}
+         <div>
+         {payload.avatar ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : (<img className="avatar" src={noAvatarPhoto} alt="no avatar" />)}
+         </div>
+
+          <div>
+            <div className="editing-block">
+            <span>{payload.login}</span>
+            <button>Edit profile</button>
+            </div>
+
+            <div className="follow-container">
+            {payload.followers && payload.followers.length ? (payload.followers.map(item => item.login)) : '0 followers'}
+            {payload.following && payload.following.length ? (payload.following.map(item => item.login)) : '0 following'}
+            </div>
+          </div>
 
           
         </div>  
           : null
-      }
-     </div>)
+      )
+    
     )
 }
 

@@ -1,19 +1,36 @@
 import { createBrowserRouter } from "react-router-dom";
-import HomePage from "../pages/homepage/HomePage";
 import SignInPage from "../pages/authorization/SignInPage";
 import SignUpPage from "../pages/authorization/SignUpPage";
 import ProfilePage from "../pages/profilePage/components/Profile";
-import NewPost from "../pages/createNewPost/NewPost";
-import EditPostPage from "../pages/editPost/EditPostPage";
-import UserPostsPage from "../pages/userPosts/UserPostsPage";
 import UserSearchPage from "../pages/userSearch/UserSearchPage";
+import LayoutPage from "../pages/LayoutPage/LayoutPage";
+import ExplorePostsPage from "../pages/explorePage/ExplorePostsPage";
+import UserPostsPage from "../pages/userPosts/UserPostsPage";
 
 
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <HomePage />,
+        element: <LayoutPage />,
+        children: [
+            {
+                path: "users/:userId",
+                element: <ProfilePage />,
+            },
+            {
+                path: "search",
+                element: <UserSearchPage />,
+            },
+            {
+                path: "explore",
+                element: <ExplorePostsPage />,
+            },
+            {
+                path: "/userPosts/userId",
+                element: <UserPostsPage />,
+            },
+        ]
     },
     {
         path: "/signin",
@@ -23,14 +40,7 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <SignUpPage />,
     },
-    {
-        path: "/users/:userId",
-        element: <ProfilePage />,
-    },
-    {
-        path: "/userSearch",
-        element: <UserSearchPage />,
-    },
+    
 
 
     // {
@@ -41,10 +51,10 @@ const router = createBrowserRouter([
     //     path: "/editPost/:postId",
     //     element: <EditPostPage />,
     // },
-    // {
-    //     path: "/userPosts/userId",
-    //     element: <UserPostsPage />,
-    // },
+    {
+        path: "/userPosts/userId",
+        element: <UserPostsPage />,
+    },
    
 ]);
 

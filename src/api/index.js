@@ -124,7 +124,7 @@ export const actionRegister = (login, password, nick) =>
     export const actionUserPosts = (id) =>
     actionPromise('userPosts', 
     gql (`query userPosts($queryPost: String) {
-     PostFindOne(query: $queryPost) {
+     PostFind(query: $queryPost) {
         _id
       }
     }`, {q: `[{ "_id": "${id}" }]`}));

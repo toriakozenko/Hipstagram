@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionAllPosts } from '../../../../api/index.js';
+import { actionAllPosts } from '../../../api/index.js';
 import { CircularProgress } from '@mui/material';
 import './style.scss';
 import PostSmall from './PostSmall.js';
@@ -8,11 +8,12 @@ import PostSmall from './PostSmall.js';
 
 
 
-const Home = () => {
+const ExplorePosts = () => {
    
     const posts = useSelector(state => state.promise.posts);
     const { status, payload } = posts || {};
     const dispatch = useDispatch();
+    console.log('posts', posts)
 
     useEffect(()=>{
         dispatch(actionAllPosts())
@@ -26,7 +27,7 @@ const Home = () => {
     <ul className='post-container'> {
       payload &&
       payload.length &&
-      payload.map(item => <PostSmall post={item}/>)
+      payload.map(item => <PostSmall post={item}  key={item._id}/>)
     }
     </ul>
     </div>)
@@ -34,4 +35,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default ExplorePosts;

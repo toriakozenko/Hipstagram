@@ -1,17 +1,17 @@
 import './style.scss';
-import hipstagramLogo from '../../../../assets/images/logo/Hipstagram logo for aside.png';
-import createNewPostButton from '../../../../assets/images/icons/HomePage/Aside/createNewPostButton.svg';
-import directButton from '../../../../assets/images/icons/HomePage/Aside/directButton.svg';
-import homePageButton from '../../../../assets/images/icons/HomePage/Aside/homePageButton.svg';
-import settingsButton from '../../../../assets/images/icons/HomePage/Aside/settingsButton.svg';
-import searchButton from '../../../../assets/images/icons/HomePage/Aside/searchButton.svg';
-import exploreButton from '../../../../assets/images/icons/HomePage/Aside/exploreButton.svg';
+import hipstagramLogo from '../../../assets/images/logo/Hipstagram logo for aside.png';
+import createNewPostButton from '../../../assets/images/icons/HomePage/Aside/createNewPostButton.svg';
+import directButton from '../../../assets/images/icons/HomePage/Aside/directButton.svg';
+import homePageButton from '../../../assets/images/icons/HomePage/Aside/homePageButton.svg';
+import settingsButton from '../../../assets/images/icons/HomePage/Aside/settingsButton.svg';
+import searchButton from '../../../assets/images/icons/HomePage/Aside/searchButton.svg';
+import exploreButton from '../../../assets/images/icons/HomePage/Aside/exploreButton.svg';
 import { Link } from 'react-router-dom';
 
 
 
 
-function Aside() {
+function Layout() {
   const navList = [
     {
       name: 'Home',
@@ -21,12 +21,12 @@ function Aside() {
     {
       name: 'Search',
       iconUrl: searchButton,
-      navLink: "/userSearch"
+      navLink: "search"
     },
     {
       name: 'Explore',
       iconUrl: exploreButton,
-      navLink: "/"
+      navLink: "explore"
     },
     {
       name: 'Direct',
@@ -60,8 +60,8 @@ function Aside() {
       <div className='sidebar'> 
         <ul className='navigation'>
           {navList.map((item) => (
-            <Link to={item.navLink}>
-              <li className='nav-item' key={item.name}>
+            <Link to={item.navLink} key={item.name}>
+              <li className='nav-item'>
                 <img src={item.iconUrl} alt='Navigation'/>
                 <span className='name'>{item.name}</span>
               </li>
@@ -74,4 +74,4 @@ function Aside() {
   )
 }
 
-export default Aside;
+export default Layout;
