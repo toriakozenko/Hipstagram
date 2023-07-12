@@ -28,24 +28,31 @@ function Profile() {
       (
         payload ?
         <div className="profile-container">
-         <div>
-         {payload.avatar ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : (<img className="avatar" src={noAvatarPhoto} alt="no avatar" />)}
-         </div>
+         <div className="profile-wrapper">
 
-          <div>
+         {payload.avatar && payload.avatar.url !== null ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : (<img className="avatar" src={noAvatarPhoto} alt="no avatar" />)}
+         
+
+          <div className="profile-info-container">
             <div className="editing-block">
-            <span>{payload.login}</span>
-            <button>Edit profile</button>
+              <span>{payload.login !== '' ? payload.login : 'anonim' }</span>
+              <button>Edit profile</button>
             </div>
 
             <div className="follow-container">
-            {payload.followers && payload.followers.length ? (payload.followers.map(item => item.login)) : '0 followers'}
-            {payload.following && payload.following.length ? (payload.following.map(item => item.login)) : '0 following'}
+              <div className="followers-container">
+              {payload.followers && payload.followers.length ? (payload.followers.map(item => <span>{item.login}</span>)) : <span>0 followers</span>}
+              </div>
+              
+              <div className="following-container">
+              {payload.following && payload.following.length ? (payload.following.map(item => <span>{item.login}</span>)) : <span>0 following</span>}
+              </div>
+            </div>
             </div>
           </div>
 
           
-        </div>  
+         </div>  
           : null
       )
     

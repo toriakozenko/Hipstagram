@@ -1,33 +1,72 @@
 .profile-container {
   width: 100%;
-  max-width: 600px;
-  height: 99vh;
+	max-width: 1170px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
 
-    
-  .avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-right: 16px;
-    object-fit: cover;
-  }
 
-  .editing-block {
+  .profile-wrapper {
     display: flex;
-    justify-content: space-between;
 
-    span {
-      font-weight: 600;
-      
+
+    .avatar {
+      width: 115px;
+      height: 115px;
+      border-radius: 50%;
+      margin-right: 115px;
+      object-fit: cover;
     }
 
-  }
-   .follow-container {
+    .profile-info-container {
       display: flex;
-      justify-content: space-between;
-    }
+      flex-direction: column;
+      justify-content: center;
+      
+
+
+      .editing-block, .follow-container {
+        display: flex;
+        justify-content: space-between;
+        width: 250px;
+        margin-bottom: 20px;
+        align-items: center;
+
+      }
+      
+      
+      span {
+        font-weight: 400;
+        font-size: 20px;
+        
+      }
+
+      button { 
+        padding: 6px 10px;
+        width: 100px;
+        height: 30px;
+        border: 1px solid #DBDBDB;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #262626;
+        cursor: pointer;
+      }
+
+      .followers-container, .following-container {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        cursor: pointer;
+
+        span {
+          margin-bottom: 10px;
+        }
+      }
+
+    }  
+  }
 }
 
 

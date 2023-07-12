@@ -38,7 +38,7 @@ function UserSearch() {
         payload.length ?
         payload.map(item => (
           <div className="searchResult" key={item._id} onClick={() => navigateToProfile(item._id)}>
-              {item.avatar ? (<img src={`${API_URL}/${item?.avatar?.url}`} alt="avatar" />) : (<img src={noAvatarPhoto} alt="no avatar" />)}
+              {item.avatar && item.avatar.url !== null ? (<img src={`${API_URL}/${item?.avatar?.url}`} alt="avatar" />) : (<img src={noAvatarPhoto} alt="no avatar" />)}
             {item.login ? <span>{item.login}</span> : "anonimus"}
           </div>
         )) : "No recent searches."
