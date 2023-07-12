@@ -137,7 +137,7 @@ export const actionRegister = (login, password, nick) =>
 
 
 
-    export const actionCreatePost = () =>
+    export const actionCreatePost = (title, text) =>
     actionPromise('createPost', 
     gql (`mutation createPost($post: PostInput) {
      PostUpsert(post: $post) {
@@ -145,7 +145,12 @@ export const actionRegister = (login, password, nick) =>
         title
         text
       }
-    }`, {"post": {}}));
+    }`, { post: { title, text }}
+    ));
+
+
+
+
 
 
 

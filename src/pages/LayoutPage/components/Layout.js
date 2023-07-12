@@ -38,7 +38,7 @@ function Layout() {
     {
       name: 'Create post',
       iconUrl: createNewPostButton,
-      // navLink: 'direct'
+      navLink: 'newPost'
     },
     {
       name: 'Profile',
@@ -48,7 +48,7 @@ function Layout() {
     {
       name: 'Settings',
       iconUrl: settingsButton,
-      // navLink: 'direct'
+      navLink: 'settings'
     }
   ];
 

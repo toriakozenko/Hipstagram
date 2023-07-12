@@ -16,8 +16,8 @@ function UserSearch() {
     const userByLogin = useSelector(state => state.promise.userByLogin);
     const state = useSelector(state => state);
     const { status, payload } = userByLogin || {};
+    
     const navigate = useNavigate();
-
     function navigateToProfile(id) {
       navigate(`/users/${id}`);
       dispatch(actionGetUserByLogin(''));
