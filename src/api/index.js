@@ -126,7 +126,7 @@ export const actionRegister = (login, password, nick) =>
             }
           }
         }
-      `, {q: `[{ "_id": "${id}" }]`}));
+      `, {q: [`{owner:{_id: ${id}}`] }));
   
 ///////////////////////////////
 

@@ -19,9 +19,9 @@ function UserSearch() {
     const navigate = useNavigate();
 
     function navigateToProfile(id) {
-      navigate("users/id")
+      navigate(`/users/${id}`);
+      dispatch(actionGetUserByLogin(''));
     }
-    const route = 'users/';
 
     return (
     (<div className="searchContainer">

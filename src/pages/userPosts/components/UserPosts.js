@@ -10,7 +10,7 @@ import './style.scss';
 
 function UserPosts() {
 
-  const { userId } = useParams();
+  const { ownerId } = useParams();
   const dispatch = useDispatch();
   const userPosts = useSelector(state => state.promise.userPosts);
   const state = useSelector(state => state);
@@ -19,8 +19,8 @@ function UserPosts() {
   console.log('payload', payload)
 
   useEffect(() => {
-    dispatch(actionUserPosts(userId))
-}, [userId, dispatch]);
+    dispatch(actionUserPosts(ownerId))
+}, [ownerId, dispatch]);
 
    
 
