@@ -27,7 +27,7 @@ const router = createBrowserRouter([
                 element: <ExplorePostsPage />,
             },
             {
-                path: "/userPosts/userId",
+                path: "posts/:userLogin",
                 element: <UserPostsPage />,
             },
         ]
@@ -51,10 +51,6 @@ const router = createBrowserRouter([
     //     path: "/editPost/:postId",
     //     element: <EditPostPage />,
     // },
-    {
-        path: "/userPosts/userId",
-        element: <UserPostsPage />,
-    },
    
 ]);
 

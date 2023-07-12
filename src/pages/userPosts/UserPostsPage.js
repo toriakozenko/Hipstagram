@@ -1,17 +1,13 @@
 import React from 'react'
 import Profile from './components/UserPosts'
 import { useParams } from 'react-router-dom';
-// import Aside from '../homepage/components/aside/Aside';
-import UserPost from './components/UserPosts';
+import UserPosts from './components/UserPosts';
 
 function UserPostsPage() {
-  const { userId } = useParams();
-    console.log( userId);
+  const { userLogin } = useParams();
+    console.log( userLogin);
   return (
-    <>
-    {/* <Aside /> */}
-    <UserPost />
-    </>
+    <UserPosts />
   )
 }
 

@@ -6,12 +6,14 @@ import homePageButton from '../../../assets/images/icons/HomePage/Aside/homePage
 import settingsButton from '../../../assets/images/icons/HomePage/Aside/settingsButton.svg';
 import searchButton from '../../../assets/images/icons/HomePage/Aside/searchButton.svg';
 import exploreButton from '../../../assets/images/icons/HomePage/Aside/exploreButton.svg';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 
 
 
 function Layout() {
+  const { userId } = useParams();
+
   const navList = [
     {
       name: 'Home',
@@ -41,7 +43,7 @@ function Layout() {
     {
       name: 'Profile',
       iconUrl: createNewPostButton,
-      // navLink: '/users/usersId'
+      navLink: 'users/:userId'
     },
     {
       name: 'Settings',

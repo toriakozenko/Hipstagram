@@ -20,6 +20,7 @@ function Profile() {
     useEffect(() => {
       dispatch(actionOneUser(userId))
   }, [userId, dispatch]);
+  
 
     return (
       status === "PENDING" || !payload ? <CircularProgress />

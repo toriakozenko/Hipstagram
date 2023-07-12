@@ -18,7 +18,7 @@ export function authReducer(state = {}, {type, token}) {
   }
 
   if (type === 'AUTH_LOGOUT') {
-    // delete.auth
+    delete localStorage.authToken;
     return {};
   }
   return state;

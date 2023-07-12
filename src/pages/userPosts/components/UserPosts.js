@@ -8,23 +8,29 @@ import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import './style.scss';
 
 
-function UserPost() {
-  const { userId } = useParams();
+function UserPosts() {
+  const { userLogin } = useParams();
+
+  console.log('userLogin', userLogin)
     const dispatch = useDispatch();
+    // const postOwner = useSelector(state => state.promise.userPosts);
+
     const userPosts = useSelector(state => state.promise.userPosts);
+    console.log('userPosts', userPosts)
     const state = useSelector(state => state);
     console.log('state', state);
     const { status, payload } = userPosts || {};
     console.log('payload', payload)
 
     useEffect(()=>{
-      dispatch(actionUserPosts(userId))
-  }, [userId, dispatch]);
+      dispatch(actionUserPosts(userLogin))
+  }, [userLogin, dispatch]);
 
     return (
       status === "PENDING" || !payload ? <CircularProgress />
       : 
     (<div>
+      {/* {payload?.data?.userPosts?._id} */}
       {
         payload ?
         <div className="profile-container">
@@ -39,4 +45,5 @@ function UserPost() {
     )
 }
 
-export default UserPost;
+export default UserPosts;
+

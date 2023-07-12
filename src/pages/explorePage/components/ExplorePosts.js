@@ -19,6 +19,7 @@ const ExplorePosts = () => {
         dispatch(actionAllPosts())
     }, [dispatch]);
 
+   
     
   return (
     status === "PENDING" && payload ?

@@ -7,7 +7,7 @@ import { localStoredReducer } from "./localStoredReducer";
 
 const reducer = combineReducers({
     promise: promiseReducer,
-    auth: localStoredReducer(authReducer),
+    auth: localStoredReducer(authReducer, 'auth'),
 });
 
 const store = configureStore({
