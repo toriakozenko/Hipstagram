@@ -6,6 +6,7 @@ import UserSearchPage from "../pages/userSearch/UserSearchPage";
 import LayoutPage from "../pages/LayoutPage/LayoutPage";
 import ExplorePostsPage from "../pages/explorePage/ExplorePostsPage";
 import UserPostsPage from "../pages/userPosts/UserPostsPage";
+import NewPostPage from "../pages/createNewPost/NewPostPage";
 
 
 
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
                 path: "posts/:ownerId",
                 element: <UserPostsPage />,
             },
+            {
+                path: "/newPost",
+                element: <NewPostPage />,
+            },
         ]
     },
     {
@@ -43,10 +48,7 @@ const router = createBrowserRouter([
     
 
 
-    // {
-    //     path: "/newPost",
-    //     element: <NewPost />,
-    // },
+    
     // {
     //     path: "/editPost/:postId",
     //     element: <EditPostPage />,

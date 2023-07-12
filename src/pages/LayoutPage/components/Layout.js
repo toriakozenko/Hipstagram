@@ -43,7 +43,7 @@ function Layout() {
     {
       name: 'Profile',
       iconUrl: createNewPostButton,
-      navLink: 'users/:userId'
+      navLink: `/users/${userId}`
     },
     {
       name: 'Settings',
@@ -62,7 +62,7 @@ function Layout() {
       <div className='sidebar'> 
         <ul className='navigation'>
           {navList.map((item) => (
-            <Link to={item.navLink} key={item.name}>
+            <Link to={item.navLink } key={item.name}>
               <li className='nav-item'>
                 <img src={item.iconUrl} alt='Navigation'/>
                 <span className='name'>{item.name}</span>

@@ -124,9 +124,12 @@ export const actionRegister = (login, password, nick) =>
               _id
               login
             }
+            images {
+              url
+            }
           }
         }
-      `, {q: [`{owner:{_id: ${id}}`] }));
+      `, { q: `[{"___owner":{"$in": ["${id}"]}},{"sort":[{"_id":-1}]}]` }));
   
 ///////////////////////////////
 
