@@ -18,7 +18,7 @@ function Profile() {
     console.log('payload', payload)
 
     useEffect(() => {
-      dispatch(actionOneUser(userId))
+      dispatch(actionOneUser(userId));
   }, [userId, dispatch]);
   
 

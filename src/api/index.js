@@ -34,6 +34,7 @@ export const actionRegister = (login, password, nick) =>
             text
             likesCount
             owner {
+              _id
               login
               avatar {
                 url
@@ -88,7 +89,7 @@ export const actionRegister = (login, password, nick) =>
         {q: `[{ "login": "${login}" }]`})
       );
 /////////////////////////////////////////
-
+////////////////////////Один юзер профіль
     export const actionOneUser = (id) =>
     actionPromise('oneUser', 
     gql (`query oneUser($q: String) {
@@ -110,7 +111,7 @@ export const actionRegister = (login, password, nick) =>
 
    
 
-
+/////////////////////// Пости певного юзера
 
     export const actionUserPosts = (id) =>
     actionPromise('userPosts', 
@@ -125,9 +126,9 @@ export const actionRegister = (login, password, nick) =>
             }
           }
         }
-      `, { "q": `[{ "_id": "${id}" }]` }));
+      `, {q: `[{ "_id": "${id}" }]`}));
   
-
+///////////////////////////////
 
 
 

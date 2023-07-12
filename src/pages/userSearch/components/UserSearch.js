@@ -14,13 +14,13 @@ function UserSearch() {
     const dispatch = useDispatch();
 
     const userByLogin = useSelector(state => state.promise.userByLogin);
-    // const state = useSelector(state => state);
+    const state = useSelector(state => state);
     const { status, payload } = userByLogin || {};
     const navigate = useNavigate();
 
-    // function navigateToProfile(id) {
-    //   navigate("explore")
-    // }
+    function navigateToProfile(id) {
+      navigate("users/id")
+    }
     const route = 'users/';
 
     return (
@@ -37,7 +37,7 @@ function UserSearch() {
         payload &&
         payload.length ?
         payload.map(item => (
-          <div className="searchResult" key={item._id}>
+          <div className="searchResult" key={item._id} onClick={() => navigateToProfile(item._id)}>
               {item.avatar ? (<img src={`${API_URL}/${item?.avatar?.url}`} alt="avatar" />) : (<img src={noAvatarPhoto} alt="no avatar" />)}
             {item.login ? <span>{item.login}</span> : "anonimus"}
           </div>
