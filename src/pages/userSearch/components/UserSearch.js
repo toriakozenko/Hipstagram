@@ -1,4 +1,3 @@
-import {  actionGetUserByLogin } from "../../../api"
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { CircularProgress } from "@mui/material";
@@ -6,6 +5,7 @@ import { API_URL } from "../../../constants/Api_Graphql";
 import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import './style.scss';
 import { Link, useNavigate } from "react-router-dom";
+import { actionGetUserByLogin } from "../../../api/users";
 
 
 function UserSearch() {

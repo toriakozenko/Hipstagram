@@ -8,6 +8,7 @@ import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import CommentsList from "./CommentsList";
 
 
+
 function PostSmall({post}) {
 
   return (
@@ -60,6 +61,7 @@ function PostSmall({post}) {
 			<div className="comments">
 				<CommentsList comments={post.comments} />
 			</div>
+
     </li>
    );
 }

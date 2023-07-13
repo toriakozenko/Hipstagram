@@ -1,0 +1,14 @@
+.labelFile {
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+}
+
+.inputFile {
+  display: none;
+}

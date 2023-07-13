@@ -1,24 +1,33 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreatePost } from '../../../api';
+import { actionCreatePost } from '../../../api/posts';
+import FilesUploader from './FilesUploader';
 
 function NewPost() {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
-
-  const newPost = useSelector(state => console.log(state));
-  // const { status, payload } = createPost || {};
-  console.log('newPost', newPost);
+  const [fileUrl, setFileUrl] = useState("");
+  const [fileId, setFileId] = useState('');
+  
+  const createPost = useSelector(state => state.promise.createPost);
+  const { status, payload } = createPost || {};
+  console.log('payload', payload);
   const dispatch = useDispatch();
 
-   const handleCreatePost = () => {
-    if (title.trim() !== '' && text.trim() !== '') {
-      dispatch(actionCreatePost(title, text));
+  const handleCreatePost = () => {
+    if (title.trim() !== '' && text.trim() !== '' && fileId && fileUrl) {
+      dispatch(actionCreatePost(title, text, fileId, fileUrl));
     }
+  };
+
+  const handleFileUpload = (id, url) => {
+    setFileId(id);
+    setFileUrl(url);
   };
 
   return (
     <div>
+       <FilesUploader onFileUpload={handleFileUpload} />
       <label>
         Enter title
       <input type="text" value={title} onChange={e => {

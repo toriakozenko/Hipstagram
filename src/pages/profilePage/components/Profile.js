@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
-import {  actionOneUser } from "../../../api"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { CircularProgress } from "@mui/material";
 import { API_URL } from "../../../constants/Api_Graphql";
 import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import './style.scss';
+import { actionOneUser } from "../../../api/users";
 
 
 function Profile() {

@@ -1,5 +1,5 @@
-import { actionLogin, actionRegister } from "../api";
 import jwt_decode from "jwt-decode";
+import { actionRegister,actionLogin } from "../api/auth";
 
 
 export function authReducer(state = {}, {type, token}) {

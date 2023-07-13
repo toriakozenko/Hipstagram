@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionAllPosts } from '../../../api/index.js';
 import { CircularProgress } from '@mui/material';
 import './style.scss';
 import PostSmall from './PostSmall.js';
+import { actionAllPosts } from '../../../api/posts.js';
 
 
 

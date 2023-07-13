@@ -1,6 +1,6 @@
 import { API_URL_GRAPHQL } from "../constants/Api_Graphql";
 
-export const gql = getGql("http://hipstagram.node.ed.asmer.org.ua/graphql");
+export const gql = getGql(API_URL_GRAPHQL);
 
 function getGql (endpoint){
   return async function gql(query, variables = {}){
