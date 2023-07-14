@@ -36,32 +36,32 @@ function SignUp() {
   function submit(e) {
     e.preventDefault();
 
-    if(!login || !password) {
-      setButtonDisabled(true)
+    if (!login || !password) {
+      setButtonDisabled(true);
+      return;
     }
 
-    if(login && password) {
-      dispatch(actionFullRegister(login, password));
-    }
+    dispatch(actionFullRegister(login, password));
+  }
 
-    if(status==='FULFILLED' && payload){
+  useEffect(() => {
+    if (status === 'FULFILLED' && payload) {
       alert(`User successfully registered!`);
       dispatch(actionFullLogin(payload));
       navigate("/");
-    }
-
-     if(status==='FULFILLED' && !payload){
+    } else if (status === 'FULFILLED' && !payload) {
       alert(`This username already exists!`);
     }
-  }
+  }, [status, payload, dispatch, navigate]);
 
+  
   return (
     <div className='signUp-container'>
         <div className='form-container'>
         <img src={hipstagramLogo} alt='hipstagramLogo'/>
         <p>Register to share photos and videos with your friends.</p>
         <form onSubmit={submit}>
-          <input id="login" type="email" placeholder="Login" onChange={listenLoginInputChange} />
+          <input id="login" type="text" placeholder="Login" onChange={listenLoginInputChange} />
           <input id="password" type="password" placeholder="Password"  onChange={listenPasswordInputChange}/>
           <button type='submit' disabled={buttonDisabled}>Sig Up</button>
         </form>

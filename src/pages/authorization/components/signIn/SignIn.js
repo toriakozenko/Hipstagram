@@ -32,25 +32,24 @@ function SignIn() {
 
   const navigate = useNavigate();
   
-
   function submit(e) {
     e.preventDefault();
 
-    if(!login || !password ) {
-      setButtonDisabled(true)
+    if (!login || !password) {
+      setButtonDisabled(true);
+      return;
     }
 
-    if(login && password) {
-      dispatch(actionFullLogin(login, password));
-      if(status === 'FULFILLED' && payload){
-        navigate('/');
-      }
-    }
+    dispatch(actionFullLogin(login, password));
+  }
 
-     if(status==='FULFILLED' && payload === null){
+  useEffect(() => {
+    if (status === 'FULFILLED' && payload) {
+      navigate('/');
+    } else if (status === 'FULFILLED' && payload === null) {
       alert(`User with this username and password does not exist! Try again!`);
     }
-  }
+  }, [status, payload, navigate]);
 
 
   return (
