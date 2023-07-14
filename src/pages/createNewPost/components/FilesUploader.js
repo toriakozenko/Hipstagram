@@ -3,6 +3,7 @@ import { useState } from "react";
 import { API_URL } from "../../../constants/Api_Graphql";
 import './filesUploader.scss';
 // import uploadPost from "../../../api/upload";
+import dragAndDrop from '../../../assets/images/icons/CreateNewPostPage/dragAndDrop.png';
 
 function FilesUploader({onFileUpload}) {
 
@@ -49,7 +50,6 @@ const postFiles = async (file) => {
 
 const fileUploadHandler = async (e) => {
     setIsLoading(true);
-
     const files = e.target.files;
     await postFiles(files[0])
     setIsLoading(false);
@@ -66,7 +66,7 @@ const dropHandler = async (e) => {
 }
 
 return (
-    <div>{
+    <div className="drop-wrapper">{
         !dragEnter ?
             <div
                 onDragEnter={(e) => dragEnterHandler(e)}
@@ -79,9 +79,9 @@ return (
                     <CircularProgress /> :
 
                     <label >
-                        Upload your media
+                        <img src={dragAndDrop} alt="drag and drop"/>
                         <br />
-                        (png, jpg, pdf, jpeg)
+                        Drag photos here
                         <input
                             accept=".jpg,.jpeg,.png,.pdf"
                             multiple={true}
@@ -101,11 +101,15 @@ return (
 
                 onDrop={(e) => dropHandler(e)}
 
-                className="labelFile">
-                Drop files here
+                className="labelFile"
+                
+            >
+                <img src={dragAndDrop} alt="drag and drop"/>
+                    
+                    Drop files here
             </div>
     }
-    {fileURL && <div><img src={`${API_URL}/${fileURL}`} alt="pic"/></div>}
+    {fileURL && <div className="preview-photo"><img src={`${API_URL}/${fileURL}`} alt="pic"/></div>}
     </div>
 )
 }

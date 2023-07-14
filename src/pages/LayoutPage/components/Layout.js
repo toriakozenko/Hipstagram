@@ -42,7 +42,7 @@ function Layout() {
     },
     {
       name: 'Profile',
-      iconUrl: createNewPostButton,
+      iconUrl: null,
       navLink: `/users/${userId}`
     },
     {

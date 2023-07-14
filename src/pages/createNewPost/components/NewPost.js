@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreatePost } from '../../../api/posts';
 import FilesUploader from './FilesUploader';
+import './newPost.scss';
 
 function NewPost() {
   const [title, setTitle] = useState('');
@@ -26,22 +27,23 @@ function NewPost() {
   };
 
   return (
-    <div>
+    <div className='newPost-wrapper'>
+      <div className='newPost-container'> 
+      <h2>Create new post</h2>
        <FilesUploader onFileUpload={handleFileUpload} />
-      <label>
-        Enter title
-      <input type="text" value={title} onChange={e => {
+    <div className='input-wrapper'>
+      <input placeholder='Write a caption...' type="text" value={title} onChange={e => {
           setTitle(e.target.value);
+          setTitle('');
         }}/>
       
-      </label>
-      <label>
-        Enter post-text
-      <input type="text" value={text} onChange={e => {
+      <input placeholder='Write a post text...' type="text" value={text} onChange={e => {
           setText(e.target.value);
+          setText('');
         }}/>
-      </label>
       <button onClick={handleCreatePost}>Create Post</button>
+    </div>
+    </div>
     </div>
   )
 }

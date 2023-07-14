@@ -6,6 +6,7 @@ import { API_URL } from "../../../constants/Api_Graphql";
 import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import './style.scss';
 import { actionOneUser } from "../../../api/users";
+import UserPostsPage from "../../userPosts/UserPostsPage";
 
 
 function Profile() {
@@ -16,6 +17,7 @@ function Profile() {
     console.log('state', state);
     const { status, payload } = oneUser || {};
     console.log('payload', payload)
+
 
     useEffect(() => {
       dispatch(actionOneUser(userId));
@@ -50,8 +52,6 @@ function Profile() {
             </div>
             </div>
           </div>
-
-          
          </div>  
           : null
       )
