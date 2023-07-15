@@ -6,13 +6,12 @@ import homePageButton from '../../../assets/images/icons/HomePage/Aside/homePage
 import settingsButton from '../../../assets/images/icons/HomePage/Aside/settingsButton.svg';
 import searchButton from '../../../assets/images/icons/HomePage/Aside/searchButton.svg';
 import exploreButton from '../../../assets/images/icons/HomePage/Aside/exploreButton.svg';
-import { Link, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 
 
 
 function Layout() {
-  const { userId } = useParams();
 
   const navList = [
     {
@@ -43,7 +42,7 @@ function Layout() {
     {
       name: 'Profile',
       iconUrl: null,
-      navLink: `/users/${userId}`
+      navLink: `profile`
     },
     {
       name: 'Settings',
@@ -62,12 +61,12 @@ function Layout() {
       <div className='sidebar'> 
         <ul className='navigation'>
           {navList.map((item) => (
-            <Link to={item.navLink } key={item.name}>
+            <NavLink to={item.navLink } key={item.name}>
               <li className='nav-item'>
                 <img src={item.iconUrl} alt='Navigation'/>
                 <span className='name'>{item.name}</span>
               </li>
-            </Link>
+            </NavLink>
           ))}
         </ul>
       </div>

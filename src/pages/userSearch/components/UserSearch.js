@@ -20,7 +20,7 @@ function UserSearch() {
     const navigate = useNavigate();
     function navigateToProfile(id) {
       navigate(`/users/${id}`);
-      dispatch(actionGetUserByLogin(''));
+      // dispatch(actionGetUserByLogin(''));
     }
 
     return (

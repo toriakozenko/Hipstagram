@@ -6,22 +6,31 @@ import { API_URL } from "../../../constants/Api_Graphql";
 import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import './style.scss';
 import { actionOneUser } from "../../../api/users";
-import UserPostsPage from "../../userPosts/UserPostsPage";
+import { actionUserPosts } from "../../../api/posts";
+import PostSmall from "../../explorePage/components/PostSmall";
 
 
 function Profile() {
   const { userId } = useParams();
     const dispatch = useDispatch();
     const oneUser = useSelector(state => state.promise.oneUser);
-    const state = useSelector(state => state);
-    console.log('state', state);
+    const userPosts = useSelector(state => state.promise.userPosts);
+
+
+    // const kaka = useSelector(state => console.log('auth', state.auth));
+
+    
+    console.log('userPosts', userPosts);
     const { status, payload } = oneUser || {};
-    console.log('payload', payload)
+    const { payload: posts } = userPosts || {};
+
+    // console.log('payload', payload)
 
 
     useEffect(() => {
       dispatch(actionOneUser(userId));
-  }, [userId, dispatch]);
+      dispatch(actionUserPosts(userId));
+    }, [userId, dispatch]);
   
 
     return (
@@ -52,6 +61,16 @@ function Profile() {
             </div>
             </div>
           </div>
+
+
+            <div className="posts-container">
+              <ul className='posts-list'> {
+                posts &&
+                posts.length &&
+                posts.map(item => <PostSmall post={item}  key={item._id}/>)
+              }
+              </ul>
+            </div>
          </div>  
           : null
       )

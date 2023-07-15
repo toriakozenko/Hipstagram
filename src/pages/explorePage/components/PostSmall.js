@@ -6,15 +6,20 @@ import iconLike from '../../../assets/images/icons/HomePage/icon-like.svg';
 import noImagePhoto from '../../../assets/images/icons/HomePage/no-image.png';
 import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import CommentsList from "./CommentsList";
+import { useNavigate } from "react-router-dom";
 
 
 
 function PostSmall({post}) {
+	const navigate = useNavigate();
+	function navigateToProfile(id) {
+		navigate(`/users/${id}`);
+	}
 
   return (
     <li className="post-card" >
 			<div className="info">
-				<div className="left-content">
+				<div className="left-content" onClick={() => navigateToProfile(post.owner._id)}>
 					{post.owner.avatar ? (<img className="avatar" src={`${API_URL}/${post?.owner?.avatar?.url}`} alt="avatar" />) : (<img className="avatar" src={noAvatarPhoto} alt="no avatar" />)}
 					<span>{post.owner.login}</span>
 					<span className="post-date">{new Date(+post.createdAt).toLocaleString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric'})}

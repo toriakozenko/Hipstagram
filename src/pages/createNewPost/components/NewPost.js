@@ -30,7 +30,9 @@ function NewPost() {
     <div className='newPost-wrapper'>
       <div className='newPost-container'> 
       <h2>Create new post</h2>
+
        <FilesUploader onFileUpload={handleFileUpload} />
+       
     <div className='input-wrapper'>
       <input placeholder='Write a caption...' type="text" value={title} onChange={e => {
           setTitle(e.target.value);

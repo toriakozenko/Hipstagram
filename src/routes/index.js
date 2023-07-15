@@ -33,11 +33,15 @@ const router = createBrowserRouter([
                 element: <UserPostsPage />,
             },
             {
-                path: "/newPost",
+                path: "newPost",
                 element: <NewPostPage />,
             },
             {
-                path: "/*",
+                path: "profile",
+                element: <NewPostPage />,
+            },
+            {
+                path: "*",
                 element: <ErrorPage />,
             },
         ]
