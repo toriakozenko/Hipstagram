@@ -7,7 +7,7 @@ import UserPostsPage from '../userPosts/UserPostsPage';
 
 function ProfilePage() {
   const { userId } = useParams();
-    console.log( userId);
+   
   return (
     <>
     <Profile />

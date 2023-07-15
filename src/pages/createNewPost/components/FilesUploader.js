@@ -39,7 +39,6 @@ const postFiles = async (file) => {
         body: formData,
     })
     const data = await response.json();
-    console.log(data);
     setFileUrl(data.url);
     setFileId(data._id);
 

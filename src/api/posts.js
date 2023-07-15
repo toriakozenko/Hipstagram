@@ -27,6 +27,9 @@ gql(`query posts($q: String) {
           login
         }
       }
+      likes {
+        _id
+      }
     }
   }`, { q: "[{},{\"sort\":[{\"_id\":-1}]}]" })
 );
@@ -60,6 +63,9 @@ actionPromise('userPosts',
             login
           }
         }
+        likes {
+          _id
+        }
       }
     }
   `, { q: `[{"___owner":{"$in": ["${id}"]}},{"sort":[{"_id":-1}]}]` }));
@@ -85,17 +91,19 @@ actionPromise('userPosts',
 
 
 
-
-
-
-
-  // export const actionEditPost = (id) =>
+  // export const actionEditPost = (postId, title, text, id) =>
   // actionPromise('editPost', 
-  // gql (`mutation createPost($post: PostInput) {
+  // gql (`mutation editPost($post: PostInput) {
   //  PostUpsert(post: $post) {
   //     _id
   //     title
   //     text
+  //     images {
+  //       _id
+  //     }
   //   }
-  // }`, {q: `[{ "_id": "${id}" }]`}));
+  // }`, { post: { _id: postId, title, text, images: [{ _id: id}] }}
+  // ));
+
+
 

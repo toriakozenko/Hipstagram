@@ -7,6 +7,9 @@ import noImagePhoto from '../../../assets/images/icons/HomePage/no-image.png';
 import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import CommentsList from "./CommentsList";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreateLike } from "../../../api/likes";
+
 
 
 
@@ -15,6 +18,12 @@ function PostSmall({post}) {
 	function navigateToProfile(id) {
 		navigate(`/users/${id}`);
 	}
+
+	const dispatch = useDispatch();
+
+	const handleCreateLike = () => {
+		dispatch(actionCreateLike());
+	};
 
   return (
     <li className="post-card" >
@@ -45,13 +54,13 @@ function PostSmall({post}) {
 
 			<div className="post-actions">
 				<div className="reaction-wrapper">
-					<img src={iconLike} alt="icon-like"/>
+					<img onClick={handleCreateLike} src={iconLike} alt="icon-like"/>
 					<img src={iconComment} alt="icon-comment"/>
 					<img src={iconShare} alt="icon-share"/>
 				</div>
 
 				<div className='likes'>
-					<span>{post.likesCount ?? 0} likes</span> 
+					<span>{post.likes.map(like => like?._id).length} likes</span>
 				</div>
 
 				<div className='post-text'>

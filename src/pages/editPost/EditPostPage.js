@@ -4,7 +4,6 @@ import EditPost from './components/EditPost';
 
 function EditPostPage() {
   const { postId } = useParams();
-    console.log('postId', postId);
   return (
     <>
     <EditPost />

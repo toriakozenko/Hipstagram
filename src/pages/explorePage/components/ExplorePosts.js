@@ -4,6 +4,7 @@ import { CircularProgress } from '@mui/material';
 import './style.scss';
 import PostSmall from './PostSmall.js';
 import { actionAllPosts } from '../../../api/posts.js';
+import { actionCreateLike } from '../../../api/likes';
 
 
 
@@ -16,10 +17,10 @@ const ExplorePosts = () => {
     console.log('posts', posts)
 
     useEffect(()=>{
+
         dispatch(actionAllPosts())
     }, [dispatch]);
 
-   
     
   return (
     status === "PENDING" && payload ?

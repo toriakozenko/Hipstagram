@@ -13,7 +13,7 @@ function EditPost() {
     const dispatch = useDispatch();
     const editPost = useSelector(state => console.log(state, 'state'));
     const { status, payload } = editPost || {};
-    console.log('payload', payload)
+   
 
     useEffect(()=>{
       dispatch(actionEditPost(postId))

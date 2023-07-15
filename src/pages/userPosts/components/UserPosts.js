@@ -12,9 +12,9 @@ function UserPosts() {
   const dispatch = useDispatch();
   const userPosts = useSelector(state => state.promise.userPosts);
   const state = useSelector(state => state);
-  // console.log('state', state);
+
   const { status, payload } = userPosts || {};
-  // console.log('payload', payload)
+
 
   useEffect(() => {
     dispatch(actionUserPosts(ownerId));

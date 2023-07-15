@@ -15,7 +15,6 @@ function SignIn() {
 
   const state = useSelector((state) => state.promise);
   const { status, payload } = state.login || {};
-  console.log('state', state)
   
   const dispatch = useDispatch();
 
