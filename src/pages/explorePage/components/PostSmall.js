@@ -67,13 +67,17 @@ function PostSmall({post}) {
 
 			<div className="post-actions">
 				<div className="reaction-wrapper">
-
-				<div onClick={handleCreateLike}>
+					
+				<div className="reaction-icon" onClick={handleCreateLike}>
             {!isLiked ? <img src={iconLike} alt="icon-like" /> : <img src={likeClicked} alt="icon-like" />}
           </div>
 
-					<img src={iconComment} alt="icon-comment"/>
-					<img src={iconShare} alt="icon-share"/>
+					<div className="reaction-icon">
+						<img src={iconComment} alt="icon-comment"/>
+					</div>
+					<div className="reaction-icon">
+						<img src={iconShare} alt="icon-share"/>
+					</div>
 				</div>
 
 				<div className='likes'>

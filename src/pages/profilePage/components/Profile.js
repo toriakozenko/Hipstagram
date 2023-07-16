@@ -17,21 +17,20 @@ function Profile() {
     const userPosts = useSelector(state => state.promise.userPosts);
 
 
-    // const kaka = useSelector(state => console.log('auth', state.auth));
-
+    const localStorageId = useSelector(state => state?.auth?.payload?.sub?.id);
     
-    console.log('userPosts', userPosts);
+    console.log('oneUser', oneUser);
     const { status, payload } = oneUser || {};
+
     const { payload: posts } = userPosts || {};
-
-    // console.log('payload', payload)
-
 
     useEffect(() => {
       dispatch(actionOneUser(userId));
       dispatch(actionUserPosts(userId));
     }, [userId, dispatch]);
   
+
+      
 
     return (
       status === "PENDING" || !payload ? <CircularProgress />
@@ -47,7 +46,9 @@ function Profile() {
           <div className="profile-info-container">
             <div className="editing-block">
               <span>{payload.login !== '' ? payload.login : 'anonim' }</span>
-              <button>Edit profile</button>
+
+              {localStorageId !== payload._id ? (<button>Follow</button>) : (<button>Edit Profile</button>)}
+
             </div>
 
             <div className="follow-container">

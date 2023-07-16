@@ -68,6 +68,9 @@ actionPromise('userPosts',
         }
         likes {
           _id
+          owner {
+            _id
+          }
         }
       }
     }

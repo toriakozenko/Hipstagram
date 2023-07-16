@@ -74,9 +74,26 @@
     .reaction-wrapper {
       display: flex;
       margin-bottom: 10px;
-      img {
-        cursor: pointer;
+      cursor: pointer;
+
+      .reaction-icon {
+        display: inline-block;
+        transition: all 0.3s ease; 
+      
+        img {
+          width: 40px; 
+          height: 40px;
+        }
+      
+        &:hover {
+          transform: scale(1.2); 
+      
+          img {
+            filter: brightness(250%); 
+          }
+        }
       }
+
     }
 
     .likes {
