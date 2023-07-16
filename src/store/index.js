@@ -3,11 +3,11 @@ import {  promiseReducer} from "./promiseReducer";
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { localStoredReducer } from "./localStoredReducer";
-// import { cartReducer } from "./cartReducer";
+
 
 const reducer = combineReducers({
-    promise: promiseReducer,
-    auth: localStoredReducer(authReducer, 'auth'),
+  promise: promiseReducer,
+  auth: localStoredReducer(authReducer, 'auth'),
 });
 
 const store = configureStore({

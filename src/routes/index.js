@@ -5,9 +5,9 @@ import ProfilePage from "../pages/profilePage/components/Profile";
 import UserSearchPage from "../pages/userSearch/UserSearchPage";
 import LayoutPage from "../pages/LayoutPage/LayoutPage";
 import ExplorePostsPage from "../pages/explorePage/ExplorePostsPage";
-import UserPostsPage from "../pages/userPosts/UserPostsPage";
 import NewPostPage from "../pages/createNewPost/NewPostPage";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+
 
 
 
@@ -27,10 +27,6 @@ const router = createBrowserRouter([
             {
                 path: "explore",
                 element: <ExplorePostsPage />,
-            },
-            {
-                path: "posts/:ownerId",
-                element: <UserPostsPage />,
             },
             {
                 path: "newPost",

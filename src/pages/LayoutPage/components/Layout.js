@@ -1,17 +1,24 @@
-import './style.scss';
-import hipstagramLogo from '../../../assets/images/logo/Hipstagram logo for aside.png';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import createNewPostButton from '../../../assets/images/icons/HomePage/Aside/createNewPostButton.svg';
 import directButton from '../../../assets/images/icons/HomePage/Aside/directButton.svg';
-import homePageButton from '../../../assets/images/icons/HomePage/Aside/homePageButton.svg';
-import settingsButton from '../../../assets/images/icons/HomePage/Aside/settingsButton.svg';
-import searchButton from '../../../assets/images/icons/HomePage/Aside/searchButton.svg';
 import exploreButton from '../../../assets/images/icons/HomePage/Aside/exploreButton.svg';
-import { NavLink, useParams } from 'react-router-dom';
+import homePageButton from '../../../assets/images/icons/HomePage/Aside/homePageButton.svg';
+import searchButton from '../../../assets/images/icons/HomePage/Aside/searchButton.svg';
+import settingsButton from '../../../assets/images/icons/HomePage/Aside/settingsButton.svg';
+import noAvatar from '../../../assets/images/icons/HomePage/no-avatar.svg';
+import hipstagramLogo from '../../../assets/images/logo/Hipstagram logo for aside.png';
+import './style.scss';
+
 
 
 
 
 function Layout() {
+ 
+  const userId = useSelector(state => state?.auth?.payload?.sub?.id);
+  
+  const avatarUrl = noAvatar; // на певний час
 
   const navList = [
     {
@@ -41,8 +48,8 @@ function Layout() {
     },
     {
       name: 'Profile',
-      iconUrl: null,
-      navLink: `profile`
+      iconUrl: avatarUrl,
+      navLink: `users/${userId}`
     },
     {
       name: 'Settings',
