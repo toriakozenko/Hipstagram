@@ -3,27 +3,40 @@ import postSettings from '../../../assets/images/icons/HomePage/post-settings.sv
 import iconComment from '../../../assets/images/icons/HomePage/icon-comment.svg';
 import iconShare from '../../../assets/images/icons/HomePage/icon-share.svg';
 import iconLike from '../../../assets/images/icons/HomePage/icon-like.svg';
+import likeClicked from '../../../assets/images/icons/HomePage/likeClicked.svg';
 import noImagePhoto from '../../../assets/images/icons/HomePage/no-image.png';
 import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import CommentsList from "./CommentsList";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { actionCreateLike } from "../../../api/likes";
+import { useState } from "react";
 
 
 
 
 function PostSmall({post}) {
+	const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(post.likes.length);
+	const dispatch = useDispatch();
+
 	const navigate = useNavigate();
 	function navigateToProfile(id) {
 		navigate(`/users/${id}`);
 	}
 
-	const dispatch = useDispatch();
+	const userId = useSelector(state => state?.auth?.payload?.sub?.id);
 
 	const handleCreateLike = () => {
-		dispatch(actionCreateLike());
+		const likedByUser = post.likes.some(like => like.owner._id === userId);
+
+		if (!likedByUser && !isLiked) { 
+			dispatch(actionCreateLike(post._id));
+			setLikeCount(likeCount => likeCount + 1);
+			setIsLiked(true);
+		}
 	};
+
 
   return (
     <li className="post-card" >
@@ -54,13 +67,17 @@ function PostSmall({post}) {
 
 			<div className="post-actions">
 				<div className="reaction-wrapper">
-					<img onClick={handleCreateLike} src={iconLike} alt="icon-like"/>
+
+				<div onClick={handleCreateLike}>
+            {!isLiked ? <img src={iconLike} alt="icon-like" /> : <img src={likeClicked} alt="icon-like" />}
+          </div>
+
 					<img src={iconComment} alt="icon-comment"/>
 					<img src={iconShare} alt="icon-share"/>
 				</div>
 
 				<div className='likes'>
-					<span>{post.likes.map(like => like?._id).length} likes</span>
+					<span>{likeCount} likes</span>
 				</div>
 
 				<div className='post-text'>

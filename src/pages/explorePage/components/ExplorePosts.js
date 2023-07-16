@@ -12,6 +12,7 @@ import { actionCreateLike } from '../../../api/likes';
 const ExplorePosts = () => {
    
     const posts = useSelector(state => state.promise.posts);
+
     const { status, payload } = posts || {};
     const dispatch = useDispatch();
     console.log('posts', posts)
@@ -29,7 +30,7 @@ const ExplorePosts = () => {
     <ul className='post-container'> {
       payload &&
       payload.length &&
-      payload.map(item => <PostSmall post={item}  key={item._id}/>)
+      payload.map(item => <PostSmall post={item} key={item._id}/>)
     }
     </ul>
     </div>)

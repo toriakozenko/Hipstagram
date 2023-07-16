@@ -29,6 +29,9 @@ gql(`query posts($q: String) {
       }
       likes {
         _id
+        owner {
+          _id
+        }
       }
     }
   }`, { q: "[{},{\"sort\":[{\"_id\":-1}]}]" })
