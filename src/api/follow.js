@@ -1,7 +1,7 @@
 import { gql } from "../Gql";
 import { actionPromise } from "../store/actionPromise";
 
-export const actionSubscribe = (id, login, userId, oldSubscribers) => 
+export const actionSubscribe = (id, login, oldUserId, userId) => 
 actionPromise('subscribe',
 gql(`mutation subscribe($user: UserInput) {
     UserUpsert(user: $user) {
@@ -11,13 +11,10 @@ gql(`mutation subscribe($user: UserInput) {
     }
   }`, 
   {
-      user: {
-        _id: id,
-        login,
-        following: [
-          ...oldSubscribers,
-          { _id: userId },
-        ],
-      },
-    })
+    user: {
+      _id: id,
+      login,
+      following: oldUserId.map(id => ({ _id: id })).concat({ _id: userId })
+    }
+  })
 );

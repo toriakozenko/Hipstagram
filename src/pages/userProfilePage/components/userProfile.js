@@ -29,6 +29,16 @@ function UserProfile() {
 
   const { payload: posts } = userPosts || {};
 
+  const userProfile = useSelector(state => state?.promise?.userProfile);
+  const { payload: newPayload } = userProfile || {};
+  console.log( 'newPayload', newPayload);
+  
+   
+  // const oldUserId = newPayload?.following?.map(item => item._id).join(',');
+  const oldUserId = newPayload?.following?.map(item => item._id);
+  console.log('oldUserId', oldUserId)
+
+
   useEffect(() => {
     dispatch(actionOneUser(userId));
     dispatch(actionUserPosts(userId));
@@ -52,7 +62,7 @@ function UserProfile() {
   };
 
   const handleSubscribe = () => {
-   	dispatch(actionSubscribe([id, login, userId]));
+   	dispatch(actionSubscribe(id, login,oldUserId, userId));
 	}
 
   const followerLogin = payload?.followers.map(item => item.login);

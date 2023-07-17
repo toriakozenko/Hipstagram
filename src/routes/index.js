@@ -7,8 +7,8 @@ import NewPostPage from "../pages/createNewPost/NewPostPage";
 import ExplorePostsPage from "../pages/explorePage/ExplorePostsPage";
 import PostCarousel from "../pages/explorePage/components/PostCarousel";
 import ProfilePage from "../pages/profilePage/components/Profile";
-import UserProfilePage from "../pages/userProfilePage/UserProfilePage";
 import UserSearchPage from "../pages/userSearch/UserSearchPage";
+import UserProfilePage from "../pages/userProfilePage/UserProfilePage";
 
 const router = createBrowserRouter([
     {

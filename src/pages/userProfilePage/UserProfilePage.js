@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import UserProfile from './components/UserProfile';
+import UserProfile from './components/UserProfile'
 
 function UserProfilePage() {
   const { userId } = useParams();
