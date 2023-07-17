@@ -97,19 +97,19 @@ actionPromise('userPosts',
 
 
 
-  // export const actionEditPost = (postId, title, text, id) =>
-  // actionPromise('editPost', 
-  // gql (`mutation editPost($post: PostInput) {
-  //  PostUpsert(post: $post) {
-  //     _id
-  //     title
-  //     text
-  //     images {
-  //       _id
-  //     }
-  //   }
-  // }`, { post: { _id: postId, title, text, images: [{ _id: id}] }}
-  // ));
+  export const actionEditPost = (postId, title, text, id) =>
+  actionPromise('editPost', 
+  gql (`mutation editPost($post: PostInput) {
+   PostUpsert(post: $post) {
+      _id
+      title
+      text
+      images {
+        _id
+      }
+    }
+  }`, { post: { _id: postId, title, text, images: [{ _id: id}] }}
+  ));
 
 
 

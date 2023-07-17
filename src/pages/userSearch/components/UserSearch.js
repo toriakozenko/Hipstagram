@@ -14,7 +14,6 @@ function UserSearch() {
     const dispatch = useDispatch();
 
     const userByLogin = useSelector(state => state.promise.userByLogin);
-    const state = useSelector(state => state);
     const { status, payload } = userByLogin || {};
     
     const navigate = useNavigate();

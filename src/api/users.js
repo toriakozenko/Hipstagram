@@ -39,6 +39,26 @@ gql (`query oneUser($q: String) {
 }`, {q: `[{ "_id": "${id}" }]`}));
 
 
+export const actionUserProfile = (id) =>
+actionPromise('userProfile', 
+gql (`query userProfile($q: String) {
+ UserFindOne(query: $q) {
+    _id
+    login
+    nick
+    avatar {
+      url
+    }
+    following {
+      login
+    }
+    followers {
+      login
+    }
+  }
+}`, {q: `[{ "_id": "${id}" }]`}));
+
+
 export const actionGetUserByLogin = (login) => 
 actionPromise('userByLogin',
 gql(`query userByLogin($q: String) {

@@ -1,12 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import LayoutPage from "../pages/LayoutPage/LayoutPage";
 import SignInPage from "../pages/authorization/SignInPage";
 import SignUpPage from "../pages/authorization/SignUpPage";
-import ProfilePage from "../pages/profilePage/components/Profile";
-import UserSearchPage from "../pages/userSearch/UserSearchPage";
-import LayoutPage from "../pages/LayoutPage/LayoutPage";
-import ExplorePostsPage from "../pages/explorePage/ExplorePostsPage";
 import NewPostPage from "../pages/createNewPost/NewPostPage";
-import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import ExplorePostsPage from "../pages/explorePage/ExplorePostsPage";
+import PostCarousel from "../pages/explorePage/components/PostCarousel";
+import ProfilePage from "../pages/profilePage/components/Profile";
+import UserProfilePage from "../pages/userProfilePage/UserProfilePage";
+import UserSearchPage from "../pages/userSearch/UserSearchPage";
 
 
 
@@ -18,6 +20,10 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "users/:userId",
+                element: <UserProfilePage />,
+            },
+            {
+                path: "profile/:userId",
                 element: <ProfilePage />,
             },
             {
@@ -33,9 +39,13 @@ const router = createBrowserRouter([
                 element: <NewPostPage />,
             },
             {
-                path: "profile",
-                element: <NewPostPage />,
+                path: "settings",
+                element: <PostCarousel />,
             },
+            // {
+            //     path: "editPost",
+            //     element: <EditPostPage />,
+            // },
             {
                 path: "*",
                 element: <ErrorPage />,
@@ -50,15 +60,6 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <SignUpPage />,
     },
-    
-
-
-    
-    // {
-    //     path: "/editPost/:postId",
-    //     element: <EditPostPage />,
-    // },
-   
 ]);
 
 export default router;

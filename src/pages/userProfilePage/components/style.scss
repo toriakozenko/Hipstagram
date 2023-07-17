@@ -68,6 +68,12 @@
           span {
             margin-bottom: 10px;
           }
+
+          .popup-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
         }
 
        

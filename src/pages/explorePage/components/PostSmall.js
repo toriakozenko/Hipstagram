@@ -1,16 +1,16 @@
-import { API_URL } from "../../../constants/Api_Graphql";
-import postSettings from '../../../assets/images/icons/HomePage/post-settings.svg';
-import iconComment from '../../../assets/images/icons/HomePage/icon-comment.svg';
-import iconShare from '../../../assets/images/icons/HomePage/icon-share.svg';
-import iconLike from '../../../assets/images/icons/HomePage/icon-like.svg';
-import likeClicked from '../../../assets/images/icons/HomePage/likeClicked.svg';
-import noImagePhoto from '../../../assets/images/icons/HomePage/no-image.png';
-import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
-import CommentsList from "./CommentsList";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector} from "react-redux";
-import { actionCreateLike } from "../../../api/likes";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { actionCreateLike } from "../../../api/likes";
+import iconComment from '../../../assets/images/icons/HomePage/icon-comment.svg';
+import iconLike from '../../../assets/images/icons/HomePage/icon-like.svg';
+import iconShare from '../../../assets/images/icons/HomePage/icon-share.svg';
+import likeClicked from '../../../assets/images/icons/HomePage/likeClicked.svg';
+import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
+import noImagePhoto from '../../../assets/images/icons/HomePage/no-image.png';
+import postSettings from '../../../assets/images/icons/HomePage/post-settings.svg';
+import { API_URL } from "../../../constants/Api_Graphql";
+import CommentsList from "./CommentsList";
 
 
 
@@ -37,9 +37,13 @@ function PostSmall({post}) {
 		}
 	};
 
+	const handleEditPost = () => {
+		navigate('editPost');
+	}
 
   return (
     <li className="post-card" >
+			
 			<div className="info">
 				<div className="left-content" onClick={() => navigateToProfile(post.owner._id)}>
 					{post.owner.avatar ? (<img className="avatar" src={`${API_URL}/${post?.owner?.avatar?.url}`} alt="avatar" />) : (<img className="avatar" src={noAvatarPhoto} alt="no avatar" />)}
@@ -47,17 +51,17 @@ function PostSmall({post}) {
 					<span className="post-date">{new Date(+post.createdAt).toLocaleString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric'})}
 					</span> 
 				</div>
-				<img src={postSettings} className="edit" alt="post-setting"/> 
+				<img onClick={handleEditPost} src={postSettings} className="edit" alt="post-setting"/> 
 			</div>
 
 			<div className='photo-container'>
 				{post.images && post.images.length ? (
 					<>
-						{post.images.map((image) => (
+						{post.images.map((image, index) => (
 							<img className="post-image"
 								src={`${image?.url !== null && image?.url !== "null" ? `${API_URL}/${image?.url}` : noImagePhoto}`}
 								alt={image?.url !== null && image?.url !== "null" ? "post" : "no post"}
-								key={image._id}
+								key={index}
 							/>
 						))}
 					</>) : (<img className="post-image" src={noImagePhoto} alt="no post"/>

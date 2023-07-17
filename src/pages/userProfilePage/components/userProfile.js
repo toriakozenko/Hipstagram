@@ -1,34 +1,39 @@
-import { CircularProgress } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { actionUserPosts } from "../../../api/posts";
-import { actionUserProfile } from "../../../api/users";
-import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
+import { useEffect, useState } from "react";
+import { CircularProgress } from "@mui/material";
 import { API_URL } from "../../../constants/Api_Graphql";
-import PostSmall from "../../explorePage/components/PostSmall";
+import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import './style.scss';
+import { actionOneUser } from "../../../api/users";
+import { actionUserPosts } from "../../../api/posts";
+import PostSmall from "../../explorePage/components/PostSmall";
+import { actionSubscribe } from "../../../api/follow";
 
 
-function Profile() {
+function UserProfile() {
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
   
+  const { userId } = useParams();
   const dispatch = useDispatch();
-  const userProfile = useSelector(state => state?.promise?.userProfile);
-  const userPosts = useSelector(state => state?.promise?.userPosts);
 
-  const localStorageId = useSelector(state => state?.auth?.payload?.sub?.id);
+  const oneUser = useSelector(state => state.promise.oneUser);
+  const userPosts = useSelector(state => state.promise.userPosts);
+
+  const login = useSelector(state => state?.auth?.payload?.sub?.login);
+
   
-  console.log('userProfile', userProfile);
-  const { status, payload } = userProfile || {};
+  console.log('oneUser', oneUser);
+  const { status, payload } = oneUser || {};
   console.log("lola", payload)
 
   const { payload: posts } = userPosts || {};
 
   useEffect(() => {
-    dispatch(actionUserProfile(localStorageId));
-    dispatch(actionUserPosts(localStorageId));
-  }, [localStorageId, dispatch]);
+    dispatch(actionOneUser(userId));
+    dispatch(actionUserPosts(userId));
+  }, [userId, dispatch]);
 
 
   const handleFollowers = () => {
@@ -49,9 +54,9 @@ function Profile() {
   };
 
 
-  const handleEditProfile = () => {
-    console.log('edit');
-    // dispatch(actionEditProfile(login, userId));
+  const handleSubscribe = () => {
+    console.log('following');
+    dispatch(actionSubscribe(login, userId));
   }
 
 
@@ -70,7 +75,7 @@ function Profile() {
           <div className="editing-block">
             <span>{payload.login !== ''  ? payload.login : 'anonim' }</span>
 
-            <button onClick={handleEditProfile}>Edit Profile</button>
+            <button onClick={handleSubscribe}>Follow</button>
 
           </div>
 
@@ -97,10 +102,10 @@ function Profile() {
               {payload.following && payload.following.length ? (<span  onClick={handleFollowing}>{payload.following.length} following</span>) : <span>0 following</span>}
 
               {showFollowing && (
-                <div>
+                <div className="popup-container">
                   <div className="popup-content">
                     <ul>
-                      {payload?.following !== null && payload?.following?.length ? (payload.following.map((item, index) => (
+                    {payload?.following !== null && payload?.following?.length ? (payload.following.map((item, index) => (
                         <li key={index}>{(item.login && item.login !== null ? <span>{item.login}</span> : <span>anonim</span>)}</li>
                       ))) : null}
               
@@ -113,7 +118,8 @@ function Profile() {
           </div>
           </div>
         </div>
-        
+
+
           <div className="posts-container">
             <ul className='posts-list'> {
               posts &&
@@ -129,4 +135,4 @@ function Profile() {
   )
 }
 
-export default Profile;
+export default UserProfile;

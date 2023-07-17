@@ -1,10 +1,9 @@
+import { CircularProgress } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CircularProgress } from '@mui/material';
-import './style.scss';
-import PostSmall from './PostSmall.js';
 import { actionAllPosts } from '../../../api/posts.js';
-import { actionCreateLike } from '../../../api/likes';
+import PostSmall from './PostSmall.js';
+import './style.scss';
 
 
 
@@ -30,7 +29,7 @@ const ExplorePosts = () => {
     <ul className='post-container'> {
       payload &&
       payload.length &&
-      payload.map(item => <PostSmall post={item} key={item._id}/>)
+      payload.map((item, index) => <PostSmall key={index} post={item}/>)
     }
     </ul>
     </div>)

@@ -1,43 +1,54 @@
-import { useParams } from "react-router-dom";
-import {  actionEditPost} from "../../../api"
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { CircularProgress } from "@mui/material";
-import { API_URL } from "../../../constants/Api_Graphql";
-import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
-import './style.scss';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionEditPost } from '../../../api/posts';
+import FilesUploader from '../../createNewPost/components/FilesUploader';
 
-
-function EditPost() {
-  const { postId } = useParams();
-    const dispatch = useDispatch();
-    const editPost = useSelector(state => console.log(state, 'state'));
-    const { status, payload } = editPost || {};
-   
-
-    useEffect(()=>{
-      dispatch(actionEditPost(postId))
-  }, [postId, dispatch]);
-
+function EditPost({postIdтхь}) {
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
+  const [fileUrl, setFileUrl] = useState("");
+  const [fileId, setFileId] = useState('');
   
+  const editPost = useSelector(state => state.promise.editPost);
+  const { status, payload } = editPost || {};
+  console.log('payload', payload);
+  const dispatch = useDispatch();
 
-    return (
-      status === "PENDING" || !payload ? <CircularProgress />
-      : 
-    // (<div>
-    //   {
-    //     payload ?
-    //     <div className="profile-container">
-    //       {payload.avatar ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : (<img className="avatar" src={noAvatarPhoto} alt="no avatar" />)}
-    //       <span>{payload.login}</span>
+  const handleEditPost = () => {
+    if (title.trim() !== '' && text.trim() !== '' && fileId && fileUrl) {
+      dispatch(actionEditPost(title, text, fileId, fileUrl));
+    }
+  };
 
-          
-    //     </div>  
-    //       : null
-    //   }
-    //  </div>)
-    <div>lalala</div>
-    )
+  const handleFileUpload = (id, url) => {
+    setFileId(id);
+    setFileUrl(url);
+  };
+
+  return (
+    <div className='newPost-wrapper'>
+      <div className='newPost-container'> 
+      <h2>Edit your post</h2>
+
+       <FilesUploader onFileUpload={handleFileUpload} />
+       
+    <div className='input-wrapper'>
+      <input placeholder='Write a caption...' type="text" value={title} onChange={e => {
+          setTitle(e.target.value);
+          setTitle('');
+        }}/>
+      
+      <input placeholder='Write a post text...' type="text" value={text} onChange={e => {
+          setText(e.target.value);
+          setText('');
+        }}/>
+      <button onClick={handleEditPost}>Edit Post</button>
+    </div>
+    </div>
+    </div>
+  )
 }
 
 export default EditPost;
+
+
