@@ -109,8 +109,8 @@ function Profile() {
         <div className="posts-container">
           <ul className='posts-list'> {
             posts &&
-            posts.length &&
-            posts.map((item, index) => <PostSmall  key={index} post={item} />)
+            posts.length ?
+            (posts.map((item, index) => <PostSmall key={index} post={item}/>)) : (<span>User haven't posts yet.</span>)
           }
           </ul>
         </div>

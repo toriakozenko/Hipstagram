@@ -21,8 +21,8 @@ function ExplorePosts() {
     overflow: 'auto'}}>
     <ul className='post-container'> {
       payload &&
-      payload.length &&
-      payload.map((item, index) => <PostSmall key={index} post={item}/>)
+      payload.length ?
+      payload.map((item, index) => <PostSmall key={index} post={item}/>) : <span>User haven't posts yet.</span>
     }
     </ul>
     </div>)

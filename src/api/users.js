@@ -26,9 +26,11 @@ gql (`query oneUser($q: String) {
       url
     }
     following {
+      _id
       login
     }
     followers {
+      _id
       login
     }
   }
