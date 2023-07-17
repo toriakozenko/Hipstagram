@@ -1,6 +1,5 @@
 import { API_URL } from "../constants/Api_Graphql";
 
-
 const uploadPost = async(formData) => {
   const response = await fetch(`${API_URL}/upload`, {
     method: "POST",

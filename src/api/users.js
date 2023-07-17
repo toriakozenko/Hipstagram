@@ -1,8 +1,6 @@
 import { gql } from "../Gql";
 import { actionPromise } from "../store/actionPromise";
 
-
-
 export const actionAllUsers = () => 
 actionPromise('users',
 gql(`query users($q: String) {
@@ -16,8 +14,6 @@ gql(`query users($q: String) {
     }
   }`, { q: "[{},{\"sort\":[{\"_id\":-1}]}]" })
 );
-
-
 
 export const actionOneUser = (id) =>
 actionPromise('oneUser', 
@@ -38,7 +34,6 @@ gql (`query oneUser($q: String) {
   }
 }`, {q: `[{ "_id": "${id}" }]`}));
 
-
 export const actionUserProfile = (id) =>
 actionPromise('userProfile', 
 gql (`query userProfile($q: String) {
@@ -57,7 +52,6 @@ gql (`query userProfile($q: String) {
     }
   }
 }`, {q: `[{ "_id": "${id}" }]`}));
-
 
 export const actionGetUserByLogin = (login) => 
 actionPromise('userByLogin',

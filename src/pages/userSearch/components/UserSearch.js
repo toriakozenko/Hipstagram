@@ -1,31 +1,25 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { CircularProgress } from "@mui/material";
-import { API_URL } from "../../../constants/Api_Graphql";
-import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
-import './style.scss';
-import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { actionGetUserByLogin } from "../../../api/users";
-
+import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
+import { API_URL } from "../../../constants/Api_Graphql";
+import './style.scss';
 
 function UserSearch() {
   const [search, setSearch] = useState([]);
-  
     const dispatch = useDispatch();
-
     const userByLogin = useSelector(state => state.promise.userByLogin);
     const { status, payload } = userByLogin || {};
     
     const navigate = useNavigate();
     function navigateToProfile(id) {
       navigate(`/users/${id}`);
-      // dispatch(actionGetUserByLogin(''));
     }
-
-    return (
+  return (
     (<div className="searchContainer">
-       <h2>Search</h2>
-       <label> Enter user login
+      <h2>Search</h2>
+      <label> Enter user login
         <input value={search} onChange={e => {
           setSearch(e.target.value);
           dispatch(actionGetUserByLogin(e.target.value));
@@ -40,11 +34,10 @@ function UserSearch() {
               {item.avatar && item.avatar.url !== null ? (<img src={`${API_URL}/${item?.avatar?.url}`} alt="avatar" />) : (<img src={noAvatarPhoto} alt="no avatar" />)}
             {item.login ? <span>{item.login}</span> : "anonimus"}
           </div>
-        )) : "No recent searches."
-          
+        )) : "No recent searches." 
       }
-     </div>)
-    )
+    </div>)
+  )
 }
 
 export default UserSearch;

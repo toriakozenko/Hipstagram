@@ -1,15 +1,14 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 import { CircularProgress } from "@mui/material";
-import { API_URL } from "../../../constants/Api_Graphql";
-import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
-import './style.scss';
-import { actionOneUser } from "../../../api/users";
-import { actionUserPosts } from "../../../api/posts";
-import PostSmall from "../../explorePage/components/PostSmall";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { actionSubscribe } from "../../../api/follow";
-
+import { actionUserPosts } from "../../../api/posts";
+import { actionOneUser } from "../../../api/users";
+import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
+import { API_URL } from "../../../constants/Api_Graphql";
+import PostSmall from "../../explorePage/components/PostSmall";
+import './style.scss';
 
 function UserProfile() {
   const [showFollowers, setShowFollowers] = useState(false);
@@ -23,10 +22,7 @@ function UserProfile() {
 
   const login = useSelector(state => state?.auth?.payload?.sub?.login);
 
-  
-  console.log('oneUser', oneUser);
   const { status, payload } = oneUser || {};
-  console.log("lola", payload)
 
   const { payload: posts } = userPosts || {};
 
@@ -55,7 +51,6 @@ function UserProfile() {
 
 
   const handleSubscribe = () => {
-    console.log('following');
     dispatch(actionSubscribe(login, userId));
   }
 

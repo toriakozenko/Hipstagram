@@ -5,22 +5,15 @@ import { actionAllPosts } from '../../../api/posts.js';
 import PostSmall from './PostSmall.js';
 import './style.scss';
 
-
-
-
-const ExplorePosts = () => {
-   
+function ExplorePosts() {
     const posts = useSelector(state => state.promise.posts);
-
     const { status, payload } = posts || {};
     const dispatch = useDispatch();
-    console.log('posts', posts)
 
     useEffect(()=>{
 
         dispatch(actionAllPosts())
     }, [dispatch]);
-
     
   return (
     status === "PENDING" && payload ?
@@ -33,7 +26,6 @@ const ExplorePosts = () => {
     }
     </ul>
     </div>)
-    
   )
 }
 

@@ -10,9 +10,6 @@ import ProfilePage from "../pages/profilePage/components/Profile";
 import UserProfilePage from "../pages/userProfilePage/UserProfilePage";
 import UserSearchPage from "../pages/userSearch/UserSearchPage";
 
-
-
-
 const router = createBrowserRouter([
     {
         path: "/",

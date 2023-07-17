@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionEditPost } from '../../../api/posts';
 import FilesUploader from '../../createNewPost/components/FilesUploader';
 
-function EditPost({postIdтхь}) {
+function EditPost({postId}) {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [fileUrl, setFileUrl] = useState("");
@@ -11,7 +11,7 @@ function EditPost({postIdтхь}) {
   
   const editPost = useSelector(state => state.promise.editPost);
   const { status, payload } = editPost || {};
-  console.log('payload', payload);
+
   const dispatch = useDispatch();
 
   const handleEditPost = () => {

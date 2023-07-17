@@ -37,8 +37,6 @@ gql(`query posts($q: String) {
   }`, { q: "[{},{\"sort\":[{\"_id\":-1}]}]" })
 );
 
-
-
 export const actionUserPosts = (id) =>
 actionPromise('userPosts', 
   gql(`
@@ -76,9 +74,6 @@ actionPromise('userPosts',
     }
   `, { q: `[{"___owner":{"$in": ["${id}"]}},{"sort":[{"_id":-1}]}]` }));
 
-
-  
-
   export const actionCreatePost = (title, text, id) =>
   actionPromise('createPost', 
   gql (`mutation createPost($post: PostInput) {
@@ -92,10 +87,6 @@ actionPromise('userPosts',
     }
   }`, { post: { title, text, images: [{ _id: id}] }}
   ));
-
-
-
-
 
   export const actionEditPost = (postId, title, text, id) =>
   actionPromise('editPost', 

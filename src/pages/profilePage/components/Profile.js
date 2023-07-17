@@ -8,7 +8,6 @@ import { API_URL } from "../../../constants/Api_Graphql";
 import PostSmall from "../../explorePage/components/PostSmall";
 import './style.scss';
 
-
 function Profile() {
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
@@ -19,9 +18,7 @@ function Profile() {
 
   const localStorageId = useSelector(state => state?.auth?.payload?.sub?.id);
   
-  console.log('userProfile', userProfile);
   const { status, payload } = userProfile || {};
-  console.log("lola", payload)
 
   const { payload: posts } = userPosts || {};
 
@@ -29,7 +26,6 @@ function Profile() {
     dispatch(actionUserProfile(localStorageId));
     dispatch(actionUserPosts(localStorageId));
   }, [localStorageId, dispatch]);
-
 
   const handleFollowers = () => {
     setShowFollowers(true);
@@ -39,7 +35,7 @@ function Profile() {
     setShowFollowers(false);
   };
 
-  
+
   const handleFollowing = () => {
     setShowFollowing(true);
   };
@@ -48,12 +44,10 @@ function Profile() {
     setShowFollowing(false);
   };
 
-
   const handleEditProfile = () => {
     console.log('edit');
     // dispatch(actionEditProfile(login, userId));
   }
-
 
   return (
     status === "PENDING" || !payload ? <CircularProgress />
@@ -63,69 +57,64 @@ function Profile() {
       <div className="profile-container">
         <div className="profile-wrapper">
 
-        {payload.avatar && payload.avatar.url !== null ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : (<img className="avatar" src={noAvatarPhoto} alt="no avatar" />)}
-        
-
-        <div className="profile-info-container">
-          <div className="editing-block">
-            <span>{payload.login !== ''  ? payload.login : 'anonim' }</span>
-
-            <button onClick={handleEditProfile}>Edit Profile</button>
-
-          </div>
-
-          <div className="follow-container">
-            <div className="followers-container">
-              {payload.followers && payload.followers.length ? (<span onClick={handleFollowers}>{payload.followers.length} followers</span>) : <span>0 followers</span>}
-
-              {showFollowers && (
-                <div className="popup-container">
-                  <div className="popup-content">
-                    <ul>
-                    {payload?.followers !== null && payload?.followers?.length ? (payload.followers.map((item, index) => (
-                        <li key={index}>{(item.login && item.login !== null ? <span>{item.login}</span> : <span>anonim</span>)}</li>
-                      ))) : null}
-                    </ul>
-                  
-                    <button onClick={handleCloseFollowers}>Close</button>
-                  </div>
-                </div>
-              )}
+          {payload.avatar && payload.avatar.url !== null ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : (<img className="avatar" src={noAvatarPhoto} alt="no avatar" />)}
+          
+          <div className="profile-info-container">
+            <div className="editing-block">
+              <span>{payload.login !== ''  ? payload.login : 'anonim' }</span>
+              <button onClick={handleEditProfile}>Edit Profile</button>
             </div>
-            
-            <div className="following-container">
-              {payload.following && payload.following.length ? (<span  onClick={handleFollowing}>{payload.following.length} following</span>) : <span>0 following</span>}
 
-              {showFollowing && (
-                <div>
-                  <div className="popup-content">
-                    <ul>
-                      {payload?.following !== null && payload?.following?.length ? (payload.following.map((item, index) => (
-                        <li key={index}>{(item.login && item.login !== null ? <span>{item.login}</span> : <span>anonim</span>)}</li>
-                      ))) : null}
+            <div className="follow-container">
+              <div className="followers-container">
+                {payload.followers && payload.followers.length ? (<span onClick={handleFollowers}>{payload.followers.length} followers</span>) : <span>0 followers</span>}
+
+                {showFollowers && (
+                  <div className="popup-container">
+                    <div className="popup-content">
+                      <ul>
+                      {payload?.followers !== null && payload?.followers?.length ? (payload.followers.map((item, index) => (
+                          <li key={index}>{(item.login && item.login !== null ? <span>{item.login}</span> : <span>anonim</span>)}</li>
+                        ))) : null}
+                      </ul>
+                    
+                      <button onClick={handleCloseFollowers}>Close</button>
+                    </div>
+                  </div>
+                )}
+              </div>
               
-                    </ul>
-                    <button onClick={handleCloseFollowing}>Close</button>
+              <div className="following-container">
+                {payload.following && payload.following.length ? (<span  onClick={handleFollowing}>{payload.following.length} following</span>) : <span>0 following</span>}
+
+                {showFollowing && (
+                  <div>
+                    <div className="popup-content">
+                      <ul>
+                        {payload?.following !== null && payload?.following?.length ? (payload.following.map((item, index) => (
+                          <li key={index}>{(item.login && item.login !== null ? <span>{item.login}</span> : <span>anonim</span>)}</li>
+                        ))) : null}
+                
+                      </ul>
+                      <button onClick={handleCloseFollowing}>Close</button>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
-          </div>
           </div>
         </div>
         
-          <div className="posts-container">
-            <ul className='posts-list'> {
-              posts &&
-              posts.length &&
-              posts.map((item, index) => <PostSmall  key={index} post={item} />)
-            }
-            </ul>
-          </div>
-        </div>  
-        : null
+        <div className="posts-container">
+          <ul className='posts-list'> {
+            posts &&
+            posts.length &&
+            posts.map((item, index) => <PostSmall  key={index} post={item} />)
+          }
+          </ul>
+        </div>
+      </div> : null
     )
-  
   )
 }
 

@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from "react-router-dom";
-import { actionFullLogin } from '../../../../store/authReducer';
 import hipstagramLogo from '../../../../assets/images/logo/Hipstagram-logo.png';
 import mainPagePicture from '../../../../assets/images/pic/login-page.JPG';
+import { actionFullLogin } from '../../../../store/authReducer';
 import './style.scss';
-
-
 
 function SignIn() {
   const [login, setLogin] = useState('');
@@ -15,9 +13,7 @@ function SignIn() {
 
   const state = useSelector((state) => state.promise);
   const { status, payload } = state.login || {};
-  
   const dispatch = useDispatch();
-
 
   function listenLoginInputChange(event){
     const value = event.target.value;
@@ -38,7 +34,6 @@ function SignIn() {
       setButtonDisabled(true);
       return;
     }
-
     dispatch(actionFullLogin(login, password));
   }
 
@@ -49,7 +44,6 @@ function SignIn() {
       alert(`User with this username and password does not exist! Try again!`);
     }
   }, [status, payload, navigate]);
-
 
   return (
     <div className='homepage-wrapper'>

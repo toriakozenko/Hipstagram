@@ -1,4 +1,3 @@
-
 import './comments.scss';
 
 function Comment({comment}) {

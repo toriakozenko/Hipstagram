@@ -8,14 +8,11 @@ import searchButton from '../../../assets/images/icons/HomePage/Aside/searchButt
 import settingsButton from '../../../assets/images/icons/HomePage/Aside/settingsButton.svg';
 import noAvatar from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import hipstagramLogo from '../../../assets/images/logo/Hipstagram logo for aside.png';
-import './style.scss';
 import { API_URL } from '../../../constants/Api_Graphql';
-
+import './style.scss';
 
 function Layout() {
- 
   const userId = useSelector(state => state?.auth?.payload?.sub?.id);
-  
   const userProfile = useSelector(state => state.promise.userProfile) 
   const avatarUrl = userProfile?.payload?.avatar?.url ? `${API_URL}/${userProfile.payload.avatar.url}` : noAvatar;
 

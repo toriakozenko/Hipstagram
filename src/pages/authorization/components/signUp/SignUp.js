@@ -1,13 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { NavLink } from 'react-router-dom';
-import { actionFullLogin, actionFullRegister } from '../../../../store/authReducer';
 import { NavLink, useNavigate } from 'react-router-dom';
 import hipstagramLogo from '../../../../assets/images/logo/Hipstagram-logo.png';
+import { actionFullLogin, actionFullRegister } from '../../../../store/authReducer';
 import './style.scss';
-
-
-
 
 function SignUp() {
   const [login, setLogin] = useState('');
@@ -19,7 +15,6 @@ function SignUp() {
 
   const dispatch = useDispatch();
 
-  
   function listenLoginInputChange(event){
     const value = event.target.value;
     setLogin(value);
@@ -30,7 +25,6 @@ function SignUp() {
     setPassword(value);
   }
   
-
   const navigate = useNavigate();
 
   function submit(e) {
@@ -40,7 +34,6 @@ function SignUp() {
       setButtonDisabled(true);
       return;
     }
-
     dispatch(actionFullRegister(login, password));
   }
 
@@ -57,21 +50,19 @@ function SignUp() {
   
   return (
     <div className='signUp-container'>
-        <div className='form-container'>
-        <img src={hipstagramLogo} alt='hipstagramLogo'/>
-        <p>Register to share photos and videos with your friends.</p>
-        <form onSubmit={submit}>
-          <input id="login" type="text" placeholder="Login" onChange={listenLoginInputChange} />
-          <input id="password" type="password" placeholder="Password"  onChange={listenPasswordInputChange}/>
-          <button type='submit' disabled={buttonDisabled}>Sig Up</button>
-        </form>
-        </div>
-
-        <div className='login-container'>
-          <span>Have an account? <NavLink to='/signin'>Sign In</NavLink></span>
-        </div>
-        
+      <div className='form-container'>
+      <img src={hipstagramLogo} alt='hipstagramLogo'/>
+      <p>Register to share photos and videos with your friends.</p>
+      <form onSubmit={submit}>
+        <input id="login" type="text" placeholder="Login" onChange={listenLoginInputChange} />
+        <input id="password" type="password" placeholder="Password"  onChange={listenPasswordInputChange}/>
+        <button type='submit' disabled={buttonDisabled}>Sig Up</button>
+      </form>
       </div>
+      <div className='login-container'>
+        <span>Have an account? <NavLink to='/signin'>Sign In</NavLink></span>
+      </div>
+    </div>
   )
 }
 

@@ -1,9 +1,8 @@
 import { CircularProgress } from "@material-ui/core";
 import { useState } from "react";
+import dragAndDrop from '../../../assets/images/icons/CreateNewPostPage/dragAndDrop.png';
 import { API_URL } from "../../../constants/Api_Graphql";
 import './filesUploader.scss';
-// import uploadPost from "../../../api/upload";
-import dragAndDrop from '../../../assets/images/icons/CreateNewPostPage/dragAndDrop.png';
 
 function FilesUploader({onFileUpload}) {
 
@@ -15,22 +14,18 @@ const [dragEnter, setDragEnter] = useState(false);
 const dragEnterHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
-
     setDragEnter(true)
 }
 
 const dragLeaveHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
-
     setDragEnter(false)
 }
 
 const postFiles = async (file) => {
     const formData = new FormData();
-
     formData.append("photo", file);
-
     const response = await fetch(`${API_URL}/upload`, {
         method: "POST",
         headers: localStorage.authToken

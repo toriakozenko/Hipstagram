@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreatePost } from '../../../api/posts';
 import FilesUploader from './FilesUploader';
@@ -12,7 +12,7 @@ function NewPost() {
   
   const createPost = useSelector(state => state.promise.createPost);
   const { status, payload } = createPost || {};
-  console.log('payload', payload);
+  
   const dispatch = useDispatch();
 
   const handleCreatePost = () => {

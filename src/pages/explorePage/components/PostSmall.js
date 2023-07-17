@@ -12,9 +12,6 @@ import postSettings from '../../../assets/images/icons/HomePage/post-settings.sv
 import { API_URL } from "../../../constants/Api_Graphql";
 import CommentsList from "./CommentsList";
 
-
-
-
 function PostSmall({post}) {
 	const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likes.length);
@@ -100,7 +97,6 @@ function PostSmall({post}) {
 			<div className="comments">
 				<CommentsList comments={post.comments} />
 			</div>
-
     </li>
    );
 }
