@@ -25,7 +25,7 @@ function UserSearch() {
           dispatch(actionGetUserByLogin(e.target.value));
         }}/>
       </label>
-
+        
       {
         payload &&
         payload.length ?

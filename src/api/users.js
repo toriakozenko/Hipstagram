@@ -46,9 +46,11 @@ gql (`query userProfile($q: String) {
     }
     following {
       login
+      _id
     }
     followers {
       login
+      _id
     }
   }
 }`, {q: `[{ "_id": "${id}" }]`}));

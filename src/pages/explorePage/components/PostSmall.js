@@ -39,6 +39,7 @@ function PostSmall({post}) {
 	}
 
   return (
+		
     <li className="post-card" >
 			
 			<div className="info">

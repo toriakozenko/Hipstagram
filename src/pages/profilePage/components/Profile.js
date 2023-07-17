@@ -50,7 +50,7 @@ function Profile() {
   }
 
   return (
-    status === "PENDING" || !payload ? <CircularProgress />
+    status === "PENDING" || !payload ? <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626'}} />
     : 
     (
       payload ?

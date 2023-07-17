@@ -55,3 +55,4 @@ export const actionFullRegister = (login, password) => {
     dispatch(actionFullLogin(login, password));
   }
 };
+

@@ -14,8 +14,8 @@ function CommentsList({comments}) {
     </AccordionSummary>
     <AccordionDetails>
     {comments && comments.length ? 
-      comments.map(comment => (
-        <Comment comment={comment}  key={comment._id} /> 
+      comments.map((comment, index) => (
+        <Comment comment={comment}  key={index} /> 
       ))
       : null}
     </AccordionDetails>

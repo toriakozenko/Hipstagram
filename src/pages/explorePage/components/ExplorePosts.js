@@ -16,8 +16,8 @@ function ExplorePosts() {
     }, [dispatch]);
     
   return (
-    status === "PENDING" && payload ?
-    <CircularProgress/>  : (<div style={{display: 'flex', justifyContent: 'center', width: '100%', height: '99vh',
+    status === "PENDING" || !payload ? <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626' }} />  
+    : (<div style={{display: 'flex', justifyContent: 'center', width: '100%', height: '99vh',
     overflow: 'auto'}}>
     <ul className='post-container'> {
       payload &&

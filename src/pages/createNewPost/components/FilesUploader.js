@@ -70,7 +70,7 @@ return (
                 className="labelFile"
             >
                 {isLoading ?
-                    <CircularProgress /> :
+                    <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626'}}/> :
 
                     <label >
                         <img src={dragAndDrop} alt="drag and drop"/>
