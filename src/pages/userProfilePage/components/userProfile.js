@@ -14,8 +14,6 @@ function UserProfile() {
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
  
-
-
   const { userId } = useParams();
   const dispatch = useDispatch();
 
@@ -28,8 +26,6 @@ function UserProfile() {
 
   const { status, payload } = oneUser || {};
   console.log('payload', payload)
-
-  const [followerCount, setFollowerCount] = useState(payload?.followers?.filter(item => item.login !== undefined)?.length || 0);
 
   const { payload: posts } = userPosts || {};
 
@@ -46,7 +42,6 @@ function UserProfile() {
   const handleCloseFollowers = () => {
     setShowFollowers(false);
   };
-
   
   const handleFollowing = () => {
     setShowFollowing(true);
@@ -56,92 +51,86 @@ function UserProfile() {
     setShowFollowing(false);
   };
 
-  const followerLogin = payload?.followers.map(item => item.login);
-
   const handleSubscribe = () => {
-   	dispatch(actionSubscribe(id, login, userId));
-    setFollowerCount(followerCount => followerCount + 1);
+   	dispatch(actionSubscribe([id, login, userId]));
 	}
+
+  const followerLogin = payload?.followers.map(item => item.login);
 
   return (
     status === "PENDING" || !payload ? <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626'}} />
     : 
     (
       payload ?
-        <div className="profile-container">
-          <div className="profile-wrapper">
+      <div className="profile-container">
+        <div className="profile-wrapper">
 
-            {payload.avatar && payload.avatar.url !== null ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : (<img className="avatar" src={noAvatarPhoto} alt="no avatar" />)}
-            
+        {payload.avatar && payload.avatar.url !== null ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : (<img className="avatar" src={noAvatarPhoto} alt="no avatar" />)}
+        
 
-            <div className="profile-info-container">
-              <div className="editing-block">
-                <span>{payload.login !== '' ? payload.login : 'anonim' }</span>
-                <button onClick={handleSubscribe}>{followerLogin.includes(login) ? 'Unfollow' : 'Follow'}</button>
-              </div>
+        <div className="profile-info-container">
+          <div className="editing-block">
+            <span>{payload.login !== ''  ? payload.login : 'anonim' }</span>
 
-              <div className="follow-container">
-                <div className="followers-container">
-                  {followerCount ? 
-                    (<span onClick={handleFollowers}>{followerCount} followers</span>) :
-                    (<span>0 followers</span>)
-                  }
-                  {showFollowers && (
-                    <div className="popup-container">
-                      <div className="popup-content">
-                        <ul>
-                          {payload?.followers !== null && payload?.followers?.length ? (payload.followers.map((item, index) => (
-                              <li key={index}>{(item.login && item.login !== null ? <span>{item.login}</span> : <span>anonim</span>)}</li>
-                            ))) : null
-                          }
-                        </ul>
-                      
-                        <button onClick={handleCloseFollowers}>Close</button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-                
-                <div className="following-container">
-                  {payload.following && payload.following.length ? 
-                    (<span  onClick={handleFollowing}>{payload.following.length} following</span>) : 
-                    <span>0 following</span>
-                  }
+            <button onClick={handleSubscribe}>{(followerLogin.includes(login) ? 'Unfollow' : 'Follow')}</button>
 
-                  {showFollowing && (
-                    <div className="popup-container">
-                      <div className="popup-content">
-                        <ul>
-                          {payload?.following !== null && payload?.following?.length ? 
-                            (payload.following.map((item, index) => (
-                              <li key={index}>{(item.login && item.login !== null 
-                                ? <span>{item.login}</span> 
-                                : <span>anonim</span>)}
-                              </li>
-                            ))) 
-                          : null}
-                        </ul>
-                        <button onClick={handleCloseFollowing}>Close</button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
+
+
           </div>
 
+          <div className="follow-container">
+            <div className="followers-container">
+            {payload.followers && payload.followers.length ? (<span  onClick={handleFollowers}>{payload.followers.length} followers</span>) : <span>0 followers</span>}
 
-            <div className="posts-container">
-              <ul className='posts-list'> {
-                posts &&
-                posts.length &&
-                posts.map((item, index) => <PostSmall  key={index} post={item} />)
-              }
-              </ul>
+              {showFollowers && (
+                <div className="popup-container">
+                  <div className="popup-content">
+                    <ul>
+                    {payload?.followers !== null && payload?.followers?.length ? (payload.followers.map((item, index) => (
+                        <li key={index}>{(item.login && item.login !== null ? <span>{item.login}</span> : <span>anonim</span>)}</li>
+                      ))) : null}
+                    </ul>
+                  
+                    <button onClick={handleCloseFollowers}>Close</button>
+                  </div>
+                </div>
+              )}
             </div>
+            
+            <div className="following-container">
+              {payload.following && payload.following.length ? (<span  onClick={handleFollowing}>{payload.following.length} following</span>) : <span>0 following</span>}
+
+              {showFollowing && (
+                <div className="popup-container">
+                  <div className="popup-content">
+                    <ul>
+                    {payload?.following !== null && payload?.following?.length ? (payload.following.map((item, index) => (
+                        <li key={index}>{(item.login && item.login !== null ? <span>{item.login}</span> : <span>anonim</span>)}</li>
+                      ))) : null}
+              
+                    </ul>
+                    <button onClick={handleCloseFollowing}>Close</button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          </div>
+        </div>
+
+
+          <div className="posts-container">
+            <ul className='posts-list'> {
+              posts &&
+              posts.length &&
+              posts.map((item, index) => <PostSmall  key={index} post={item} />)
+            }
+            </ul>
+          </div>
         </div>  
-      : null
+        : null
     )
+  
   )
 }
 
