@@ -10,12 +10,16 @@ import ProfilePage from "../pages/profilePage/components/Profile";
 import UserSearchPage from "../pages/userSearch/UserSearchPage";
 import UserProfilePage from "../pages/userProfilePage/UserProfilePage";
 import SettingsPage from "../pages/settingsPage/SettingsPage";
+import FollowingPostPage from "../pages/followingPostPage/FollowingPostPage";
 
 const router = createBrowserRouter([
     {
-        path: "/",
         element: <LayoutPage />,
         children: [
+            {
+                path: "/",
+                element: <FollowingPostPage />,
+            },
             {
                 path: "users/:userId",
                 element: <UserProfilePage />,

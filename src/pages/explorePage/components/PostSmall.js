@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { actionCreateLike } from "../../../api/likes";
@@ -21,8 +21,14 @@ function PostSmall({post}) {
 	function navigateToProfile(id) {
 		navigate(`/users/${id}`);
 	}
+	
 
 	const userId = useSelector(state => state?.auth?.payload?.sub?.id);
+	
+	useEffect(() => {
+		const likedByUser = post.likes.some((like) => like.owner._id === userId);
+		setIsLiked(likedByUser);
+	}, [post.likes, userId]);
 
 	const handleCreateLike = () => {
 		const likedByUser = post.likes.some(like => like.owner._id === userId);
@@ -71,7 +77,7 @@ function PostSmall({post}) {
 				<div className="reaction-wrapper">
 					
 				<div className="reaction-icon" onClick={handleCreateLike}>
-            {!isLiked ? <img src={iconLike} alt="icon-like" /> : <img src={likeClicked} alt="icon-like" />}
+            {isLiked ? <img src={likeClicked} alt="icon-like" /> : <img src={iconLike} alt="icon-like" />}
           </div>
 
 					<div className="reaction-icon">

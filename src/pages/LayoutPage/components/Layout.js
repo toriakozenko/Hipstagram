@@ -12,8 +12,9 @@ import { API_URL } from '../../../constants/Api_Graphql';
 import './style.scss';
 
 function Layout() {
+
   const userId = useSelector(state => state?.auth?.payload?.sub?.id);
-  const userProfile = useSelector(state => state.promise.userProfile) 
+  const userProfile = useSelector(state => state?.promise?.userProfile);
   const avatarUrl = userProfile?.payload?.avatar?.url ? `${API_URL}/${userProfile.payload.avatar.url}` : noAvatar;
 
   const navList = [
@@ -56,7 +57,7 @@ function Layout() {
 
   
   return (
-    <div className="sidebar-container">
+      <div className="sidebar-container">
       <div className='logo'>
         <img src={hipstagramLogo} alt='Hipstagram'/>
       </div>
@@ -73,7 +74,6 @@ function Layout() {
           ))}
         </ul>
       </div>
-
     </div>
   )
 }

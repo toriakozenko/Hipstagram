@@ -19,7 +19,6 @@ function Profile() {
   const localStorageId = useSelector(state => state?.auth?.payload?.sub?.id);
   
   const { status, payload } = userProfile || {};
-  console.log('payload', payload)
 
   const { payload: posts } = userPosts || {};
 
