@@ -7,8 +7,9 @@ import { actionUserPosts } from "../../../api/posts";
 import { actionOneUser } from "../../../api/users";
 import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import { API_URL } from "../../../constants/Api_Graphql";
-import PostSmall from "../../explorePage/components/PostSmall";
 import './style.scss';
+import PostSmall from "../../explorePage/components/PostSmall";
+
 
 function UserProfile() {
   const [showFollowers, setShowFollowers] = useState(false);
@@ -33,11 +34,9 @@ function UserProfile() {
   const { payload: newPayload } = userProfile || {};
   console.log( 'newPayload', newPayload);
   
-   
   // const oldUserId = newPayload?.following?.map(item => item._id).join(',');
   const oldUserId = newPayload?.following?.map(item => item._id);
   console.log('oldUserId', oldUserId)
-
 
   useEffect(() => {
     dispatch(actionOneUser(userId));
