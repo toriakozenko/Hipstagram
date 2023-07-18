@@ -36,12 +36,10 @@ function NewPost() {
     <div className='input-wrapper'>
       <input placeholder='Write a caption...' type="text" value={title} onChange={e => {
           setTitle(e.target.value);
-          setTitle('');
         }}/>
       
       <input placeholder='Write a post text...' type="text" value={text} onChange={e => {
           setText(e.target.value);
-          setText('');
         }}/>
       <button onClick={handleCreatePost}>Create Post</button>
     </div>

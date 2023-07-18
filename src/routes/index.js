@@ -9,6 +9,7 @@ import PostCarousel from "../pages/explorePage/components/PostCarousel";
 import ProfilePage from "../pages/profilePage/components/Profile";
 import UserSearchPage from "../pages/userSearch/UserSearchPage";
 import UserProfilePage from "../pages/userProfilePage/UserProfilePage";
+import SettingsPage from "../pages/settingsPage/SettingsPage";
 
 const router = createBrowserRouter([
     {
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "settings",
-                element: <PostCarousel />,
+                element: <SettingsPage />,
             },
             // {
             //     path: "editPost",
