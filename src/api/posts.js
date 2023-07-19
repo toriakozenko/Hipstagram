@@ -75,7 +75,7 @@ actionPromise('userPosts',
     }
   `, { q: `[{"___owner":{"$in": ["${id}"]}},{"sort":[{"_id":-1}]}]` }));
 
-  export const actionAllFollowingPosts = (arr) =>
+  export const actionAllFollowingPosts = (arr, skip, limit) =>
   actionPromise('allFollowingPosts',
     gql(`
     query userPosts($q: String) {
@@ -110,7 +110,7 @@ actionPromise('userPosts',
         }
       }
     }
-  `, { q: `[{"___owner":{"$in": ${arr}}},{"sort":[{"_id":-1}]}]` }));
+  `, { q: `[{"___owner":{"$in": ${arr}}},{"sort":[{"_id":-1}], "skip": [${skip}], "limit": [${limit}] }]` }));
 
   export const actionCreatePost = (title, text, id) =>
   actionPromise('createPost', 

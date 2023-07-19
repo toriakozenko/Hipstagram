@@ -1,16 +1,16 @@
-import {  authReducer} from "./authReducer";
-import {  promiseReducer} from "./promiseReducer";
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
+import { authReducer } from "./authReducer";
 import { localStoredReducer } from "./localStoredReducer";
-import { postsReducer } from "./postsReducer";
+import { promiseReducer } from "./promiseReducer";
+import { postsReducer } from './postsReducer';
 
 
 
 const reducer = combineReducers({
   promise: promiseReducer,
+  posts: (postsReducer), 
   auth: localStoredReducer(authReducer, 'auth'),
-  posts: localStoredReducer(postsReducer, 'posts'), 
 });
 
 const store = configureStore({

@@ -1,23 +1,27 @@
-export function postsReducer(state = {}, { type, posts }) {
-  let newState = { ...state };
+export function postsReducer(state = [], {type, payload}) {
 
-  if (type === 'GET_POSTS') {
-    if (newState[posts._id]) {
-      newState[posts._id] = posts;
-    } else {
-      newState = {
-        ...newState,
-        ...{ [posts._id]: { posts } },
-      };
-    }
-    return newState;
+  if(type === "ALL_POSTS") {
+    return [...payload];
   }
+
+  if(type === "ADD_POSTS") {
+    return [...state, ...payload];
+  }
+
   return state; 
 }
 
-export const actionGetPosts = (posts) => {
+
+export const actionSetPosts = (payload) => {
   return {
-    type: 'GET_POSTS', 
-    posts
-   }
-};
+    type: "ALL_POSTS",
+    payload
+  }
+}
+
+export const actionAddPosts = (payload) => {
+  return {
+    type: "ADD_POSTS",
+    payload
+  }
+}
