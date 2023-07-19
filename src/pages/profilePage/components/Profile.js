@@ -1,18 +1,20 @@
 import { CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionUserPosts } from "../../../api/posts";
+import { actionEditPost, actionUserPosts } from "../../../api/posts";
 import { actionUserProfile } from "../../../api/users";
 import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import { API_URL } from "../../../constants/Api_Graphql";
 import PostSmall from "../../explorePage/components/PostSmall";
 import './style.scss';
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
   
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userProfile = useSelector(state => state?.promise?.userProfile);
   const userPosts = useSelector(state => state?.promise?.userPosts);
 

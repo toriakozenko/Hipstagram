@@ -2,21 +2,21 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionEditPost } from '../../../api/posts';
 import FilesUploader from '../../createNewPost/components/FilesUploader';
+import { useLocation } from 'react-router-dom';
 
-function EditPost({postId}) {
+function EditPost() {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [fileUrl, setFileUrl] = useState("");
   const [fileId, setFileId] = useState('');
-  
-  const editPost = useSelector(state => state.promise.editPost);
-  const { status, payload } = editPost || {};
+  const location = useLocation();
+  const postId = location?.state || null;
 
-  const dispatch = useDispatch();
+ const dispatch = useDispatch();
 
   const handleEditPost = () => {
     if (title.trim() !== '' && text.trim() !== '' && fileId && fileUrl) {
-      dispatch(actionEditPost(title, text, fileId, fileUrl));
+      dispatch(actionEditPost(postId, title, text, fileId, fileUrl));
     }
   };
 
@@ -35,12 +35,10 @@ function EditPost({postId}) {
     <div className='input-wrapper'>
       <input placeholder='Write a caption...' type="text" value={title} onChange={e => {
           setTitle(e.target.value);
-          setTitle('');
         }}/>
       
       <input placeholder='Write a post text...' type="text" value={text} onChange={e => {
           setText(e.target.value);
-          setText('');
         }}/>
       <button onClick={handleEditPost}>Edit Post</button>
     </div>

@@ -16,7 +16,8 @@ function PostSmall({post}) {
 	const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likes.length);
 	const dispatch = useDispatch();
-
+	const postOwnerId = post?.owner?._id;
+	console.log('postOwner', postOwnerId)
 	const navigate = useNavigate();
 	function navigateToProfile(id) {
 		navigate(`/users/${id}`);
@@ -40,8 +41,11 @@ function PostSmall({post}) {
 		}
 	};
 
-	const handleEditPost = () => {
-		navigate('editPost');
+	const handleEditPost = (id) => {
+		if(postOwnerId === userId) {
+			navigate('/editPost', {state: id});
+		}
+		
 	}
 
   return (
@@ -55,7 +59,7 @@ function PostSmall({post}) {
 					<span className="post-date">{new Date(+post.createdAt).toLocaleString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric'})}
 					</span> 
 				</div>
-				<img onClick={handleEditPost} src={postSettings} className="edit" alt="post-setting"/> 
+				<img onClick={() => handleEditPost(post._id)} src={postSettings} className="edit" alt="post-setting"/> 
 			</div>
 
 			<div className='photo-container'>

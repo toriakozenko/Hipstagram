@@ -11,6 +11,7 @@ import UserSearchPage from "../pages/userSearch/UserSearchPage";
 import UserProfilePage from "../pages/userProfilePage/UserProfilePage";
 import SettingsPage from "../pages/settingsPage/SettingsPage";
 import FollowingPostPage from "../pages/followingPostPage/FollowingPostPage";
+import EditPostPage from "../pages/editPost/EditPostPage";
 
 const router = createBrowserRouter([
     {
@@ -44,10 +45,10 @@ const router = createBrowserRouter([
                 path: "settings",
                 element: <SettingsPage />,
             },
-            // {
-            //     path: "editPost",
-            //     element: <EditPostPage />,
-            // },
+            {
+                path: "editPost",
+                element: <EditPostPage />,
+            },
             {
                 path: "*",
                 element: <ErrorPage />,

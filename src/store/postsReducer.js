@@ -1,10 +1,10 @@
 export function postsReducer(state = [], {type, payload}) {
 
-  if(type === "ALL_POSTS") {
+  if (type === "ALL_POSTS") {
     return [...payload];
   }
 
-  if(type === "ADD_POSTS") {
+  if (type === "ADD_POSTS") {
     return [...state, ...payload];
   }
 
@@ -25,3 +25,4 @@ export const actionAddPosts = (payload) => {
     payload
   }
 }
+

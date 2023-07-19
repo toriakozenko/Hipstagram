@@ -2,7 +2,7 @@ import { gql } from "../Gql";
 import { actionPromise } from "../store/actionPromise";
 import { actionGetPosts } from "../store/postsReducer";
 
-export const actionAllPosts = () => 
+export const actionAllPosts = (skip, limit) => 
 actionPromise('posts',
 gql(`query posts($q: String) {
     PostFind(query: $q) {
@@ -35,7 +35,7 @@ gql(`query posts($q: String) {
         }
       }
     }
-  }`, { q: "[{},{\"sort\":[{\"_id\":-1}]}]" })
+  }`, { q: `[{},{"sort":[{"_id":-1}], "skip": [${skip}], "limit": [${limit}] }]`})
 );
 
 export const actionUserPosts = (id) =>
@@ -126,19 +126,19 @@ actionPromise('userPosts',
   }`, { post: { title, text, images: [{ _id: id}] }}
   ));
 
-  // export const actionEditPost = (postId, title, text, id) =>
-  // actionPromise('editPost', 
-  // gql (`mutation editPost($post: PostInput) {
-  //  PostUpsert(post: $post) {
-  //     _id
-  //     title
-  //     text
-  //     images {
-  //       _id
-  //     }
-  //   }
-  // }`, { post: { _id: postId, title, text, images: [{ _id: id}] }}
-  // ));
+  export const actionEditPost = (postId, title, text, id) =>
+  actionPromise('editPost', 
+  gql (`mutation editPost($post: PostInput) {
+   PostUpsert(post: $post) {
+      _id
+      title
+      text
+      images {
+        _id
+      }
+    }
+  }`, { post: { _id: postId, title, text, images: [{ _id: id}] }}
+  ));
 
 
 

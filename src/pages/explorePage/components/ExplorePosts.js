@@ -1,32 +1,56 @@
 import { CircularProgress } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from 'react-redux';
 import { actionAllPosts } from '../../../api/posts.js';
 import PostSmall from './PostSmall.js';
 import './style.scss';
+import { POSTS_LIMIT } from '../../../constants/Posts_Limit.js';
+import { actionAddPosts, actionSetPosts } from '../../../store/postsReducer.js';
 
 function ExplorePosts() {
-    const posts = useSelector(state => state.promise.posts);
-    const { status, payload } = posts || {};
+  const [ skipPosts, setSkipPosts ] = useState(0);
     const dispatch = useDispatch();
+    const posts = useSelector(state => state?.promise?.posts?.payload);
+    
+    console.log(posts)
 
-    useEffect(()=>{
+    useEffect(() => {
+      async function fetchData() {
+        const allPosts = await dispatch(actionAllPosts(skipPosts, POSTS_LIMIT));
+       dispatch(actionSetPosts(allPosts));
+      }
+      fetchData()
+    },[dispatch])
 
-        dispatch(actionAllPosts())
-    }, [dispatch]);
+
+    async function fetchMorePosts() {
+      setSkipPosts(skip => skip + POSTS_LIMIT)
+      const newPosts = await dispatch(actionAllPosts(skipPosts + POSTS_LIMIT, POSTS_LIMIT));
+      dispatch(actionAddPosts(newPosts));
+    }    
     
   return (
-    status === "PENDING" || !payload ? <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626' }} />  
-    : (<div style={{display: 'flex', justifyContent: 'center', width: '100%', height: '99vh',
-    overflow: 'auto'}}>
-    <ul className='post-container'> {
-      payload &&
-      payload.length ?
-      payload.map((item, index) => <PostSmall key={index} post={item}/>) : <span>User haven't posts yet.</span>
-    }
+    <div className="following-posts">
+    <ul className="post-container">
+      {posts?.length ? (
+        <InfiniteScroll
+          dataLength={posts?.length}
+          next={fetchMorePosts}
+          hasMore={true}
+          loader={<h4>Loading...</h4>}
+        >
+          {posts?.map((post, index) => (
+            <PostSmall key={index} post={post} />
+          ))}
+        </InfiniteScroll>
+      ) : null}
     </ul>
-    </div>)
+  </div>
   )
 }
 
 export default ExplorePosts;
+
+
+

@@ -9,7 +9,7 @@ import { postsReducer } from './postsReducer';
 
 const reducer = combineReducers({
   promise: promiseReducer,
-  posts: (postsReducer), 
+  posts: postsReducer, 
   auth: localStoredReducer(authReducer, 'auth'),
 });
 
