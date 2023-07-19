@@ -104,11 +104,18 @@ li {
 				.name {
 					width: 100%;
 				}
-
 			}
+
+			.profile-icon img {
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+			}
+			
 		}
 	}
 }
+
 
 
 .active {

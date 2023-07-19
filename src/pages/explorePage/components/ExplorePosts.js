@@ -12,9 +12,7 @@ function ExplorePosts() {
   const [ skipPosts, setSkipPosts ] = useState(0);
     const dispatch = useDispatch();
     const posts = useSelector(state => state?.promise?.posts?.payload);
-    
-    console.log(posts)
-
+  
     useEffect(() => {
       async function fetchData() {
         const allPosts = await dispatch(actionAllPosts(skipPosts, POSTS_LIMIT));

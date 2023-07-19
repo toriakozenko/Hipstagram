@@ -40,7 +40,7 @@ function EditPost() {
       <input placeholder='Write a post text...' type="text" value={text} onChange={e => {
           setText(e.target.value);
         }}/>
-      <button onClick={handleEditPost}>Edit Post</button>
+      <button onClick={handleEditPost}>Submit</button>
     </div>
     </div>
     </div>

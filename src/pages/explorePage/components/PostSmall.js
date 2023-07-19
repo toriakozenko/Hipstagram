@@ -17,7 +17,6 @@ function PostSmall({post}) {
   const [likeCount, setLikeCount] = useState(post.likes.length);
 	const dispatch = useDispatch();
 	const postOwnerId = post?.owner?._id;
-	console.log('postOwner', postOwnerId)
 	const navigate = useNavigate();
 	function navigateToProfile(id) {
 		navigate(`/users/${id}`);
@@ -45,7 +44,6 @@ function PostSmall({post}) {
 		if(postOwnerId === userId) {
 			navigate('/editPost', {state: id});
 		}
-		
 	}
 
   return (

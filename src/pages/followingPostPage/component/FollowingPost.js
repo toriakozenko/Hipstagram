@@ -14,7 +14,6 @@ function FollowingPost() {
   const dispatch = useDispatch();
   const userId = useSelector(state => state?.auth?.payload?.sub?.id);
   const posts = useSelector(state => state?.posts);
-  console.log('posts', posts)
   const user = useSelector(state => state?.promise?.userProfile);
 
   

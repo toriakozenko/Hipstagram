@@ -18,16 +18,17 @@ function Profile() {
   const userProfile = useSelector(state => state?.promise?.userProfile);
   const userPosts = useSelector(state => state?.promise?.userPosts);
 
-  const localStorageId = useSelector(state => state?.auth?.payload?.sub?.id);
+  const userId = useSelector(state => state?.auth?.payload?.sub?.id);
   
   const { status, payload } = userProfile || {};
+  // console.log(payload)
 
   const { payload: posts } = userPosts || {};
 
   useEffect(() => {
-    dispatch(actionUserProfile(localStorageId));
-    dispatch(actionUserPosts(localStorageId));
-  }, [localStorageId, dispatch]);
+    dispatch(actionUserProfile(userId));
+    dispatch(actionUserPosts(userId));
+  }, [userId, dispatch]);
 
   const handleFollowers = () => {
     setShowFollowers(true);
@@ -47,10 +48,9 @@ function Profile() {
   };
 
   const handleEditProfile = () => {
-    console.log('edit');
-    // dispatch(actionEditProfile(login, userId));
+		navigate('/editProfile');
   }
-
+ 
   return (
     status === "PENDING" || !payload ? <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626'}} />
     : 
@@ -110,8 +110,8 @@ function Profile() {
         <div className="posts-container">
           <ul className='posts-list'> {
             posts &&
-            posts.length ?
-            (posts.map((item, index) => <PostSmall key={index} post={item}/>)) : (<span>User haven't posts yet.</span>)
+            posts.length &&
+            (posts.map((item, index) => <PostSmall key={index} post={item}/>))
           }
           </ul>
         </div>

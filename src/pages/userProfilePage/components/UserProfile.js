@@ -129,7 +129,7 @@ function UserProfile() {
           <ul className='posts-list'> {
             posts &&
             posts?.length &&
-            (posts.map((item, index) => <PostSmall key={index} post={item}/>)) ? (<span>User haven't posts yet.</span>) : null
+            (posts.map((item, index) => <PostSmall key={index} post={item}/>))
           }
           </ul>
         </div>

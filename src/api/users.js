@@ -74,3 +74,15 @@ gql(`query userByLogin($q: String) {
 
 
 
+export const actionEditUserPage = (userId, login, fileId ) =>
+actionPromise('editUser', 
+gql (`mutation editUser($user: UserInput) {
+  UserUpsert(user: $user) {
+    _id
+    login
+    avatar {
+      _id
+    }
+  }
+}`, { user: { _id: userId, login, avatar: { _id: fileId} }}
+));

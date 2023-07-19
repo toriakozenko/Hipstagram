@@ -41,7 +41,7 @@ function NewPost() {
       <input placeholder='Write a post text...' type="text" value={text} onChange={e => {
           setText(e.target.value);
         }}/>
-      <button onClick={handleCreatePost}>Create Post</button>
+      <button onClick={handleCreatePost}>Submit</button>
     </div>
     </div>
     </div>

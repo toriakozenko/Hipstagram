@@ -1,13 +1,9 @@
+import EditProfilePage from "./components/EditProfilePage";
 
 function SettingsPage() {
-  function handleLogOut() {
-    
-  }
-
+  
   return (
-   <div>
-    <button onClick={handleLogOut}>Log out</button>
-   </div>
+    <EditProfilePage />
   )
 }
 

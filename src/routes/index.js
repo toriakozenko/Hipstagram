@@ -4,14 +4,14 @@ import LayoutPage from "../pages/LayoutPage/LayoutPage";
 import SignInPage from "../pages/authorization/SignInPage";
 import SignUpPage from "../pages/authorization/SignUpPage";
 import NewPostPage from "../pages/createNewPost/NewPostPage";
-import ExplorePostsPage from "../pages/explorePage/ExplorePostsPage";
-import PostCarousel from "../pages/explorePage/components/PostCarousel";
-import ProfilePage from "../pages/profilePage/components/Profile";
-import UserSearchPage from "../pages/userSearch/UserSearchPage";
-import UserProfilePage from "../pages/userProfilePage/UserProfilePage";
-import SettingsPage from "../pages/settingsPage/SettingsPage";
-import FollowingPostPage from "../pages/followingPostPage/FollowingPostPage";
 import EditPostPage from "../pages/editPost/EditPostPage";
+import ExplorePostsPage from "../pages/explorePage/ExplorePostsPage";
+import FollowingPostPage from "../pages/followingPostPage/FollowingPostPage";
+import ProfilePage from "../pages/profilePage/components/Profile";
+import SettingsPage from "../pages/settingsPage/SettingsPage";
+import EditProfilePage from "../pages/settingsPage/components/EditProfilePage";
+import UserProfilePage from "../pages/userProfilePage/UserProfilePage";
+import UserSearchPage from "../pages/userSearch/UserSearchPage";
 
 const router = createBrowserRouter([
     {
@@ -48,6 +48,10 @@ const router = createBrowserRouter([
             {
                 path: "editPost",
                 element: <EditPostPage />,
+            },
+            {
+                path: "editProfile",
+                element: <EditProfilePage />,
             },
             {
                 path: "*",
