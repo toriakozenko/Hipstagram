@@ -10,7 +10,7 @@
   width: 100%;
   max-width: 500px;
   height: 100%;
-  max-height: 550px; 
+  // max-height: 600px; 
   background: #fff;
   border: 1px solid #dfdfdf;
   margin-bottom: 30px;
@@ -135,5 +135,45 @@
         }
     }
   }
+
+  .comments-container {
+      display: flex;
+      flex-direction: column;
+  
+
+    .add-comment-container {
+      width: 100%;
+      height: 50px;
+      border-radius: 1px solid #dfdfdf;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+    input {
+      padding-left: 6px;
+      width: 80%;
+      height: 100%;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+
+    button {
+      cursor: pointer;
+      width: 70px;
+      height: 100%;
+      background: none;
+      border: none;
+      outline: none;
+      text-transform: capitalize;
+      font-size: 16px;
+      color: rgb(0, 162, 255);
+      opacity: 0.5;
+    }
+    }
+
+   
+  }
+
   
 }

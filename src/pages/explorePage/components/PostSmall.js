@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { actionCreateComment } from "../../../api/comment";
 import { actionCreateLike } from "../../../api/likes";
 import iconComment from '../../../assets/images/icons/HomePage/icon-comment.svg';
 import iconLike from '../../../assets/images/icons/HomePage/icon-like.svg';
@@ -15,6 +16,7 @@ import CommentsList from "./CommentsList";
 function PostSmall({post}) {
 	const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likes.length);
+	const [comment, setComment] = useState('');
 	const dispatch = useDispatch();
 	const postOwnerId = post?.owner?._id;
 	const navigate = useNavigate();
@@ -22,7 +24,6 @@ function PostSmall({post}) {
 		navigate(`/users/${id}`);
 	}
 	
-
 	const userId = useSelector(state => state?.auth?.payload?.sub?.id);
 	
 	useEffect(() => {
@@ -45,6 +46,17 @@ function PostSmall({post}) {
 			navigate('/editPost', {state: id});
 		}
 	}
+
+	const handleCreateComment = () => {
+		if (comment.trim() !== '') {
+			dispatch(actionCreateComment(post._id, comment));
+			console.log('post._id', post._id)
+			console.log("comment", comment)
+		}
+		
+	};
+	console.log('comment', comment)
+
 
   return (
 		
@@ -82,7 +94,7 @@ function PostSmall({post}) {
             {isLiked ? <img src={likeClicked} alt="icon-like" /> : <img src={iconLike} alt="icon-like" />}
           </div>
 
-					<div className="reaction-icon">
+				<div className="reaction-icon">
 						<img src={iconComment} alt="icon-comment"/>
 					</div>
 					<div className="reaction-icon">
@@ -103,7 +115,14 @@ function PostSmall({post}) {
 				</div>
 			</div>
 
-			<div className="comments">
+			<div className="comments-container">
+			<div className="add-comment-container">
+			<input placeholder='Add a comment...' type="text" value={comment} onChange={e => {
+          setComment(e.target.value);
+        }}/>
+				<span>{post?.comments?.text}</span>
+				<button onClick={handleCreateComment}>Post</button>
+			</div>
 				<CommentsList comments={post.comments} />
 			</div>
     </li>

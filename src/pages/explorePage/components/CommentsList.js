@@ -8,7 +8,8 @@ function CommentsList({comments}) {
   return ( 
   
     comments && comments.length ? 
-    <Accordion>
+    <Accordion sx={{ border: 'transparent'}}>
+      
     <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{  fontWeight: 'light', fontSize: 14 }}>
       View all comments
     </AccordionSummary>
