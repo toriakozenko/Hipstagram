@@ -52,10 +52,8 @@ function PostSmall({post}) {
 			dispatch(actionCreateComment(post._id, comment));
 			console.log('post._id', post._id)
 			console.log("comment", comment)
-		}
-		
+		}	
 	};
-	console.log('comment', comment)
 
 
   return (

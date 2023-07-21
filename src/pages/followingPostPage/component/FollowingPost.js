@@ -32,7 +32,6 @@ function FollowingPost() {
     setSkipPosts(skip => skip + POSTS_LIMIT)
     const newPosts = await dispatch(actionAllFollowingPosts(JSON.stringify(following), skipPosts + POSTS_LIMIT, POSTS_LIMIT));
     dispatch(actionAddPosts(newPosts));
-
   }
   
 

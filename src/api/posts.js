@@ -1,6 +1,5 @@
 import { gql } from "../Gql";
 import { actionPromise } from "../store/actionPromise";
-import { actionGetPosts } from "../store/postsReducer";
 
 export const actionAllPosts = (skip, limit) => 
 actionPromise('posts',
