@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { actionCreateComment } from "../../../api/comment";
 import { actionCreateLike } from "../../../api/likes";
+import { actionPostDelete } from "../../../api/posts";
 import iconComment from '../../../assets/images/icons/HomePage/icon-comment.svg';
 import iconLike from '../../../assets/images/icons/HomePage/icon-like.svg';
 import iconShare from '../../../assets/images/icons/HomePage/icon-share.svg';
@@ -12,6 +13,7 @@ import noImagePhoto from '../../../assets/images/icons/HomePage/no-image.png';
 import postSettings from '../../../assets/images/icons/HomePage/post-settings.svg';
 import { API_URL } from "../../../constants/Api_Graphql";
 import CommentsList from "./CommentsList";
+import PostCarousel from "./PostCarousel";
 
 function PostSmall({post}) {
 	const [isLiked, setIsLiked] = useState(false);
@@ -23,7 +25,6 @@ function PostSmall({post}) {
 	function navigateToProfile(id) {
 		navigate(`/users/${id}`);
 	}
-	
 	const userId = useSelector(state => state?.auth?.payload?.sub?.id);
 	
 	useEffect(() => {
@@ -50,12 +51,12 @@ function PostSmall({post}) {
 	const handleCreateComment = () => {
 		if (comment.trim() !== '') {
 			dispatch(actionCreateComment(post._id, comment));
-			console.log('post._id', post._id)
-			console.log("comment", comment)
 		}	
 	};
 
-
+  const handleDeletePost = () => {
+		dispatch(actionPostDelete(post._id))
+  }
   return (
 		
     <li className="post-card" >
@@ -68,19 +69,17 @@ function PostSmall({post}) {
 					</span> 
 				</div>
 				<img onClick={() => handleEditPost(post._id)} src={postSettings} className="edit" alt="post-setting"/> 
+				{post  ? (<button onClick={handleDeletePost}>Delete</button>) : null}
 			</div>
 
 			<div className='photo-container'>
-				{post.images && post.images.length ? (
-					<>
-						{post.images.map((image, index) => (
-							<img className="post-image"
-								src={`${image?.url !== null && image?.url !== "null" ? `${API_URL}/${image?.url}` : noImagePhoto}`}
-								alt={image?.url !== null && image?.url !== "null" ? "post" : "no post"}
-								key={index}
-							/>
-						))}
-					</>) : (<img className="post-image" src={noImagePhoto} alt="no post"/>
+				{post.images && post.images.length ? post.images.length === 1 ? ( <img className="post-image"
+        src={`${post.images[0].url !== null && post.images[0].url !== "null" ? `${API_URL}/${post.images[0].url}` : {noImagePhoto}}`}
+        alt="post" /> ) 
+				: (
+					<PostCarousel items={post.images} />
+					)
+				 : (<img className="post-image" src={noImagePhoto} alt="no post"/>
 				)}
 			</div>
 

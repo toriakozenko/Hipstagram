@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { actionCreatePost } from '../../../api/posts';
 import FilesUploader from './FilesUploader';
 import './newPost.scss';
@@ -7,23 +7,22 @@ import './newPost.scss';
 function NewPost() {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
-  const [fileUrl, setFileUrl] = useState("");
-  const [fileId, setFileId] = useState('');
-  
-  const createPost = useSelector(state => state.promise.createPost);
-  const { status, payload } = createPost || {};
-  
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+
+const handleFileUpload = (id, url) => {
+  setUploadedFiles((prevUploadedFiles) => [
+    ...prevUploadedFiles,
+    { id, url },
+  ]);
+};
+
   const dispatch = useDispatch();
 
   const handleCreatePost = () => {
-    if (title.trim() !== '' && text.trim() !== '' && fileId && fileUrl) {
-      dispatch(actionCreatePost(title, text, fileId, fileUrl));
+    if (title.trim() !== '' && text.trim() !== '' && uploadedFiles.length > 0) {
+      const files = uploadedFiles.map(({ id }) => ({ _id: id }));
+      dispatch(actionCreatePost(title, text, files));
     }
-  };
-
-  const handleFileUpload = (id, url) => {
-    setFileId(id);
-    setFileUrl(url);
   };
 
   return (

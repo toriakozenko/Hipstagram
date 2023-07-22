@@ -12,6 +12,7 @@ import SettingsPage from "../pages/settingsPage/SettingsPage";
 import EditProfilePage from "../pages/settingsPage/components/EditProfilePage";
 import UserProfilePage from "../pages/userProfilePage/UserProfilePage";
 import UserSearchPage from "../pages/userSearch/UserSearchPage";
+import PostCarousel from "../pages/explorePage/components/PostCarousel";
 
 const router = createBrowserRouter([
     {

@@ -67,7 +67,7 @@ function UserProfile() {
   const followerLogin = payload?.followers?.map(item => item.login);
 
   return (
-    status === "PENDING" || !payload ? <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626'}} />
+    !status || status === "PENDING" || !payload || !posts ? <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626'}} />
     : 
     (
       payload ?
@@ -128,8 +128,8 @@ function UserProfile() {
         <div className="posts-container">
           <ul className='posts-list'> {
             posts &&
-            posts?.length &&
-            (posts.map((item, index) => <PostSmall key={index} post={item}/>))
+            posts.length ?
+            (posts?.map((item, index) => <PostSmall key={index} post={item}/>)) : (<span>User haven't posts yet.</span>)
           }
           </ul>
         </div>

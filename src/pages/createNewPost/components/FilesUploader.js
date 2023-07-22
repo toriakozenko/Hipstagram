@@ -7,9 +7,9 @@ import './filesUploader.scss';
 function FilesUploader({onFileUpload}) {
 
 const [isLoading, setIsLoading] = useState(false);
-const [fileId, setFileId] = useState("");
-const [fileURL, setFileUrl] = useState("");
 const [dragEnter, setDragEnter] = useState(false);
+const [uploadedFiles, setUploadedFiles] = useState([]);
+
 
 const dragEnterHandler = (e) => {
     e.preventDefault();
@@ -23,29 +23,33 @@ const dragLeaveHandler = (e) => {
     setDragEnter(false)
 }
 
-const postFiles = async (file) => {
-    const formData = new FormData();
-    formData.append("photo", file);
-    const response = await fetch(`${API_URL}/upload`, {
+const postFiles = async (files) => {
+    for (const file of files) {
+      const formData = new FormData();
+      formData.append("photo", file);
+      const response = await fetch(`${API_URL}/upload`, {
         method: "POST",
         headers: localStorage.authToken
-            ? { Authorization: "Bearer " + localStorage.authToken }
-            : {},
+          ? { Authorization: "Bearer " + localStorage.authToken }
+          : {},
         body: formData,
-    })
-    const data = await response.json();
-    setFileUrl(data.url);
-    setFileId(data._id);
+      });
+      const data = await response.json();
+      setUploadedFiles((prevUploadedFiles) => [
+        ...prevUploadedFiles,
+        { id: data._id, url: data.url }
+      ]);
 
-    if (onFileUpload) {
+      if (onFileUpload) {
         onFileUpload(data._id, data.url);
       }
-}
+    }
+  };
 
 const fileUploadHandler = async (e) => {
     setIsLoading(true);
-    const files = e.target.files;
-    await postFiles(files[0])
+    const files = e.target.files;  
+    await postFiles(files)
     setIsLoading(false);
 }
 
@@ -55,7 +59,7 @@ const dropHandler = async (e) => {
 
     setIsLoading(true);
     const files = e.dataTransfer.files;
-    await postFiles(files[0])
+    await postFiles(files)
     setIsLoading(false);
 }
 
@@ -103,7 +107,13 @@ return (
                     Drop files here
             </div>
     }
-    {fileURL && <div className="preview-photo"><img src={`${API_URL}/${fileURL}`} alt="pic"/></div>}
+   {uploadedFiles.length > 0 && (
+        <div className="preview-photo">
+          {uploadedFiles.map((file) => (
+            <img key={file.id} src={`${API_URL}/${file.url}`} alt="pic" />
+          ))}
+        </div>
+      )}
     </div>
 )
 }

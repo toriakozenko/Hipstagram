@@ -21,6 +21,7 @@ gql(`query posts($q: String) {
         url
       }
       comments {
+        _id
         text
         owner {
           _id
@@ -58,6 +59,7 @@ actionPromise('userPosts',
           url
         }
         comments {
+          _id
           text
           owner {
             _id
@@ -95,6 +97,7 @@ actionPromise('userPosts',
           url
         }
         comments {
+          _id
           text
           owner {
             _id
@@ -111,7 +114,7 @@ actionPromise('userPosts',
     }
   `, { q: `[{"___owner":{"$in": ${arr}}},{"sort":[{"_id":-1}], "skip": [${skip}], "limit": [${limit}] }]` }));
 
-  export const actionCreatePost = (title, text, id) =>
+  export const actionCreatePost = (title, text, files) =>
   actionPromise('createPost', 
   gql (`mutation createPost($post: PostInput) {
    PostUpsert(post: $post) {
@@ -122,9 +125,10 @@ actionPromise('userPosts',
         _id
       }
     }
-  }`, { post: { title, text, images: [{ _id: id}] }}
+  }`, { post: { title, text, images: files }}
   ));
 
+  
   export const actionEditPost = (postId, title, text, id) =>
   actionPromise('editPost', 
   gql (`mutation editPost($post: PostInput) {
@@ -141,3 +145,12 @@ actionPromise('userPosts',
 
 
 
+  export const actionPostDelete = (id) =>
+  actionPromise('postDelete', 
+    gql(`
+      mutation postDelete($post: PostInput) {
+        PostDelete(post: $post) {
+          _id
+        }
+      }
+    `, { post: { _id: id}}));

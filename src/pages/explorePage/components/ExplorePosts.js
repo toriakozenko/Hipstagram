@@ -15,8 +15,6 @@ function ExplorePosts() {
     useEffect(() => {
       async function fetchData() {
         const allPosts = await dispatch(actionAllPosts(skipPosts, POSTS_LIMIT));
-        console.log('skipPosts', skipPosts);
-        console.log('POSTS_LIMIT', POSTS_LIMIT);
        dispatch(actionSetPosts(allPosts));
       }
       fetchData()
@@ -25,21 +23,20 @@ function ExplorePosts() {
     async function fetchMorePosts() {
       setSkipPosts(skip => skip + POSTS_LIMIT)
       const newPosts = await dispatch(actionAllPosts(skipPosts + POSTS_LIMIT, POSTS_LIMIT));
-      console.log('new posts', newPosts)
       dispatch(actionAddPosts(newPosts));
     }    
     
   return (
     <div className="following-posts">
     <ul className="post-container">
-      {posts?.length ? (
+      { posts && posts?.length ? (
         <InfiniteScroll
           dataLength={posts?.length}
           next={fetchMorePosts}
           hasMore={true}
           loader={<h4>Loading...</h4>}
         >
-          {posts?.map((post, index) => (
+          {posts.map((post, index) => (
             <PostSmall key={index} post={post} />
           ))}
         </InfiniteScroll>

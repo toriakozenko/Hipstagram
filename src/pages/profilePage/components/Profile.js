@@ -2,7 +2,7 @@ import { CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { actionUserPosts } from "../../../api/posts";
+import { actionPostDelete, actionUserPosts } from "../../../api/posts";
 import { actionUserProfile } from "../../../api/users";
 import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import { API_URL } from "../../../constants/Api_Graphql";
@@ -21,7 +21,6 @@ function Profile() {
 
   const userPosts = useSelector(state => state?.promise?.userPosts);
   const { payload: posts } = userPosts || {};
-
   useEffect(() => {
     dispatch(actionUserProfile(userId));
     dispatch(actionUserPosts(userId));
@@ -46,9 +45,11 @@ function Profile() {
   const handleEditProfile = () => {
 		navigate('/editProfile');
   }
+
+  
  
   return (
-    status === "PENDING" || !payload ? <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626'}} />
+    (status === "undefined" || status === "PENDING" || !payload || !posts) ? <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626'}} />
     : 
     (
       payload ?
@@ -104,10 +105,11 @@ function Profile() {
         </div>
         
         <div className="posts-container">
+        
           <ul className='posts-list'> {
             posts &&
-            posts.length &&
-            (posts.map((item, index) => <PostSmall key={index} post={item}/>))
+            posts.length > 0 ?
+            (posts?.map((item, index) => <PostSmall key={index} post={item}/>)) : (<span>User haven't posts yet.</span>)
           }
           </ul>
         </div>
