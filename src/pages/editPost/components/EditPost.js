@@ -1,29 +1,31 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { actionEditPost } from '../../../api/posts';
 import FilesUploader from '../../createNewPost/components/FilesUploader';
-import { useLocation } from 'react-router-dom';
 
 function EditPost() {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
-  const [fileUrl, setFileUrl] = useState("");
-  const [fileId, setFileId] = useState('');
+  const [uploadedFiles, setUploadedFiles] = useState([]);
   const location = useLocation();
   const postId = location?.state || null;
 
  const dispatch = useDispatch();
 
-  const handleEditPost = () => {
-    if (title.trim() !== '' && text.trim() !== '' && fileId && fileUrl) {
-      dispatch(actionEditPost(postId, title, text, fileId, fileUrl));
-    }
-  };
+ const handleFileUpload = (id, url) => {
+  setUploadedFiles((prevUploadedFiles) => [
+    ...prevUploadedFiles,
+    { id, url },
+  ]);
+};
 
-  const handleFileUpload = (id, url) => {
-    setFileId(id);
-    setFileUrl(url);
-  };
+const handleEditPost = () => {
+  if (title.trim() !== '' && text.trim() !== ''  && uploadedFiles.length > 0) {
+    const files = uploadedFiles.map(({ id }) => ({ _id: id }));
+    dispatch(actionEditPost(postId, title, text, files )); 
+  }
+};
 
   return (
     <div className='newPost-wrapper'>
@@ -48,5 +50,3 @@ function EditPost() {
 }
 
 export default EditPost;
-
-

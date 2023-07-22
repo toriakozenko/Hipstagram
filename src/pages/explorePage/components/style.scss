@@ -53,10 +53,26 @@
         margin-left: 8px;
       }
     }
+    .right-content {
+      display: flex;
+      align-items: center;
+      img {
+        cursor: pointer;
+      }
 
-    .edit {
-      cursor: pointer;
+      button {
+        width: 50px;
+        height: 30px;
+        border: 1px solid #DBDBDB;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #262626;
+        cursor: pointer;
+        margin-right: 10px;
+      }
     }
+   
   }
 
   .photo-container {
@@ -115,7 +131,6 @@
       overflow: hidden;
       white-space: nowrap;
       width: 100%;
-      max-width: 350px;
 
       .post-text-wrapper {
         margin-bottom: 10px;

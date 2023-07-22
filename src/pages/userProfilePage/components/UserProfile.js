@@ -86,6 +86,7 @@ function UserProfile() {
             </div>
 
             <div className="follow-container">
+              {posts && posts.length ? (<span>{posts.length} posts</span>) : (<span>0 posts</span>)}
               <div className="followers-container">
                 {payload.followers && payload.followers.length ? (<span  onClick={handleFollowers}>{payload.followers.length} followers</span>) : <span>0 followers</span>}
 

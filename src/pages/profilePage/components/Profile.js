@@ -2,7 +2,7 @@ import { CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { actionPostDelete, actionUserPosts } from "../../../api/posts";
+import { actionUserPosts } from "../../../api/posts";
 import { actionUserProfile } from "../../../api/users";
 import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import { API_URL } from "../../../constants/Api_Graphql";
@@ -46,7 +46,6 @@ function Profile() {
 		navigate('/editProfile');
   }
 
-  
  
   return (
     (status === "undefined" || status === "PENDING" || !payload || !posts) ? <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626'}} />
@@ -65,6 +64,7 @@ function Profile() {
             </div>
 
             <div className="follow-container">
+              {posts && posts.length ? (<span>{posts.length} posts</span>) : (<span>0 posts</span>)}
               <div className="followers-container">
                 {payload.followers && payload.followers.length ? (<span onClick={handleFollowers}>{payload.followers.length} followers</span>) : <span>0 followers</span>}
 

@@ -1,29 +1,36 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import createNewPostButton from '../../../assets/images/icons/HomePage/Aside/createNewPostButton.svg';
-import logoutButton from '../../../assets/images/icons/HomePage/logout.png';
 import exploreButton from '../../../assets/images/icons/HomePage/Aside/exploreButton.svg';
 import homePageButton from '../../../assets/images/icons/HomePage/Aside/homePageButton.svg';
 import searchButton from '../../../assets/images/icons/HomePage/Aside/searchButton.svg';
 import settingsButton from '../../../assets/images/icons/HomePage/Aside/settingsButton.svg';
+import logoutButton from '../../../assets/images/icons/HomePage/logout.png';
 import noAvatar from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import hipstagramLogo from '../../../assets/images/logo/Hipstagram logo for aside.png';
 import { API_URL } from '../../../constants/Api_Graphql';
-import './style.scss';
-import LogOut from '../LogOut';
 import { actionAuthLogout } from '../../../store/authReducer';
+import './style.scss';
+import { useEffect, useState } from 'react';
 
 function Layout() {
 
   const userId = useSelector(state => state?.auth?.payload?.sub?.id);
   const userProfile = useSelector(state => state?.promise?.userProfile);
   const avatarUrl = userProfile?.payload?.avatar?.url ? `${API_URL}/${userProfile.payload.avatar.url}` : noAvatar;
-
+  const location = useLocation();
   const dispatch = useDispatch();
 
   function handleLogOut() {
     dispatch(actionAuthLogout())
   }
+  const [activeItem, setActiveItem] = useState('');
+
+  // Update the active item whenever the location changes
+  useEffect(() => {
+    setActiveItem(location.pathname);
+  }, [location.pathname]);
+
 
   const navList = [
     {
@@ -34,28 +41,28 @@ function Layout() {
     {
       name: 'Search',
       iconUrl: searchButton,
-      navLink: "search"
+      navLink: "/search"
     },
     {
       name: 'Explore',
       iconUrl: exploreButton,
-      navLink: "explore"
+      navLink: "/explore"
     },
     {
       name: 'Create post',
       iconUrl: createNewPostButton,
-      navLink: 'newPost'
+      navLink: '/newPost'
     },
     {
       name: 'Profile',
       iconUrl: avatarUrl,
-      navLink: `profile/${userId}`,
+      navLink: `/profile/${userId}`,
       className: 'profile-icon'
     },
     {
       name: 'Settings',
       iconUrl: settingsButton,
-      navLink: 'settings'
+      navLink: '/settings'
     },
   ];
     
@@ -69,7 +76,7 @@ function Layout() {
         <ul className='navigation'>
           {navList.map((item) => (
             <NavLink to={item.navLink } key={item.name}>
-              <li className={`nav-item ${item.className || ''}`}>
+              <li className={`nav-item ${activeItem === item.navLink ? 'active' : ''} ${item.className || ''}`}>
                 <img src={item.iconUrl} alt='Navigation'/>
                 <span className='name'>{item.name}</span>
               </li>

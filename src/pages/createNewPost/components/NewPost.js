@@ -22,6 +22,9 @@ const handleFileUpload = (id, url) => {
     if (title.trim() !== '' && text.trim() !== '' && uploadedFiles.length > 0) {
       const files = uploadedFiles.map(({ id }) => ({ _id: id }));
       dispatch(actionCreatePost(title, text, files));
+      console.log('title', title)
+      console.log('text', text)
+      console.log('files', files)
     }
   };
 

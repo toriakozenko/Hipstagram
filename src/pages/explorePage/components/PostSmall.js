@@ -10,7 +10,6 @@ import iconShare from '../../../assets/images/icons/HomePage/icon-share.svg';
 import likeClicked from '../../../assets/images/icons/HomePage/likeClicked.svg';
 import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import noImagePhoto from '../../../assets/images/icons/HomePage/no-image.png';
-import postSettings from '../../../assets/images/icons/HomePage/post-settings.svg';
 import { API_URL } from "../../../constants/Api_Graphql";
 import CommentsList from "./CommentsList";
 import PostCarousel from "./PostCarousel";
@@ -68,8 +67,10 @@ function PostSmall({post}) {
 					<span className="post-date">{new Date(+post.createdAt).toLocaleString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric'})}
 					</span> 
 				</div>
-				<img onClick={() => handleEditPost(post._id)} src={postSettings} className="edit" alt="post-setting"/> 
-				{post  ? (<button onClick={handleDeletePost}>Delete</button>) : null}
+				<div className="right-content">
+					{postOwnerId === userId  ? (<button onClick={() => handleEditPost(post._id)}>Edit </button>) : null}
+					{postOwnerId === userId  ? (<button onClick={handleDeletePost}>Delete</button>) : null}
+				</div>
 			</div>
 
 			<div className='photo-container'>

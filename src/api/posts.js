@@ -129,7 +129,7 @@ actionPromise('userPosts',
   ));
 
   
-  export const actionEditPost = (postId, title, text, id) =>
+  export const actionEditPost = (postId, title, text, files) =>
   actionPromise('editPost', 
   gql (`mutation editPost($post: PostInput) {
    PostUpsert(post: $post) {
@@ -140,7 +140,7 @@ actionPromise('userPosts',
         _id
       }
     }
-  }`, { post: { _id: postId, title, text, images: [{ _id: id}] }}
+  }`, { post: { _id: postId, title, text, images: files }}
   ));
 
 
