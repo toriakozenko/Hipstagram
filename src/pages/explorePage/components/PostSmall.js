@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { actionCreateComment } from "../../../api/comment";
 import { actionCreateLike } from "../../../api/likes";
-import { actionPostDelete } from "../../../api/posts";
+import { actionPostDelete, actionUserPosts } from "../../../api/posts";
 import iconComment from '../../../assets/images/icons/HomePage/icon-comment.svg';
 import iconLike from '../../../assets/images/icons/HomePage/icon-like.svg';
 import iconShare from '../../../assets/images/icons/HomePage/icon-share.svg';
@@ -17,14 +17,21 @@ import PostCarousel from "./PostCarousel";
 function PostSmall({post}) {
 	const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likes.length);
+
+	const [isComment, setIsComment] = useState(post.comments);
+
 	const [comment, setComment] = useState('');
+
 	const dispatch = useDispatch();
 	const postOwnerId = post?.owner?._id;
+	
 	const navigate = useNavigate();
 	function navigateToProfile(id) {
 		navigate(`/users/${id}`);
 	}
 	const userId = useSelector(state => state?.auth?.payload?.sub?.id);
+	const userLogin = useSelector(state => state?.auth?.payload?.sub?.login);
+
 	
 	useEffect(() => {
 		const likedByUser = post.likes.some((like) => like.owner._id === userId);
@@ -47,9 +54,11 @@ function PostSmall({post}) {
 		}
 	}
 
-	const handleCreateComment = () => {
+	const handleCreateComment = async () => {
 		if (comment.trim() !== '') {
-			dispatch(actionCreateComment(post._id, comment));
+			await dispatch(actionCreateComment(post._id, comment));
+			setIsComment(prevState => [...prevState, {owner:{_id: userId, login: userLogin }, text: comment}]);
+			setComment('');
 		}	
 	};
 
@@ -90,19 +99,12 @@ function PostSmall({post}) {
 					
 				<div className="reaction-icon" onClick={handleCreateLike}>
             {isLiked ? <img src={likeClicked} alt="icon-like" /> : <img src={iconLike} alt="icon-like" />}
-          </div>
-
-				<div className="reaction-icon">
-						<img src={iconComment} alt="icon-comment"/>
-					</div>
-					<div className="reaction-icon">
-						<img src={iconShare} alt="icon-share"/>
-					</div>
+						<span className='likes'>{likeCount} likes</span>
+        </div>
+				
 				</div>
 
-				<div className='likes'>
-					<span>{likeCount} likes</span>
-				</div>
+				
 
 				<div className='post-text'>
 					<div className="post-text-wrapper">
@@ -121,7 +123,7 @@ function PostSmall({post}) {
 				<span>{post?.comments?.text}</span>
 				<button onClick={handleCreateComment}>Post</button>
 			</div>
-				<CommentsList comments={post.comments} />
+				<CommentsList comments={isComment} />
 			</div>
     </li>
    );

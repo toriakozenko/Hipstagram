@@ -5,8 +5,6 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Comment from './Comment';
 
 function CommentsList({comments}) {
-
-  
   return ( 
   
     comments && comments.length ? 
@@ -18,7 +16,7 @@ function CommentsList({comments}) {
     <AccordionDetails>
     {comments && comments.length ? 
       comments.map((comment, index) => (
-        <Comment comment={comment}  key={index} /> 
+        <Comment comment={comment} key={index} /> 
       ))
       : null}
     </AccordionDetails>

@@ -1,7 +1,7 @@
 export function postsReducer(state = [], {type, payload}) {
 
   if (type === "ALL_POSTS") {
-    return [...payload];
+    return  payload ? [...payload] : [];
   }
 
   if (type === "ADD_POSTS") {

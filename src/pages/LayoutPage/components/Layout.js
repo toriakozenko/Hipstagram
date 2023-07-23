@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import createNewPostButton from '../../../assets/images/icons/HomePage/Aside/createNewPostButton.svg';
@@ -11,22 +12,21 @@ import hipstagramLogo from '../../../assets/images/logo/Hipstagram logo for asid
 import { API_URL } from '../../../constants/Api_Graphql';
 import { actionAuthLogout } from '../../../store/authReducer';
 import './style.scss';
-import { useEffect, useState } from 'react';
 
 function Layout() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [activeItem, setActiveItem] = useState('');
+  const dispatch = useDispatch();
+  const location = useLocation();
 
   const userId = useSelector(state => state?.auth?.payload?.sub?.id);
   const userProfile = useSelector(state => state?.promise?.userProfile);
-  const avatarUrl = userProfile?.payload?.avatar?.url ? `${API_URL}/${userProfile.payload.avatar.url}` : noAvatar;
-  const location = useLocation();
-  const dispatch = useDispatch();
-
+  const avatarUrl = isLoading && userProfile?.payload?.avatar?.url ? `${API_URL}/${userProfile?.payload?.avatar?.url}` : noAvatar;
+  
   function handleLogOut() {
     dispatch(actionAuthLogout())
   }
-  const [activeItem, setActiveItem] = useState('');
 
-  // Update the active item whenever the location changes
   useEffect(() => {
     setActiveItem(location.pathname);
   }, [location.pathname]);

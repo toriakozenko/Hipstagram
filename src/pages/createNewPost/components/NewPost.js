@@ -1,13 +1,16 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actionCreatePost } from '../../../api/posts';
 import FilesUploader from './FilesUploader';
 import './newPost.scss';
+import { useNavigate } from 'react-router-dom';
 
 function NewPost() {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const navigate = useNavigate();
+  const userId = useSelector(state => state?.auth?.payload?.sub?.id);
 
 const handleFileUpload = (id, url) => {
   setUploadedFiles((prevUploadedFiles) => [
@@ -22,9 +25,7 @@ const handleFileUpload = (id, url) => {
     if (title.trim() !== '' && text.trim() !== '' && uploadedFiles.length > 0) {
       const files = uploadedFiles.map(({ id }) => ({ _id: id }));
       dispatch(actionCreatePost(title, text, files));
-      console.log('title', title)
-      console.log('text', text)
-      console.log('files', files)
+      navigate(`/profile/${userId}`);
     }
   };
 

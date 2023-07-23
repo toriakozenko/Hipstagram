@@ -6,9 +6,6 @@ import FilesUploader from "../../createNewPost/components/FilesUploader";
 function EditProfilePage() {
 
   const userId = useSelector(state => state?.promise?.userProfile?.payload?._id);
-  console.log('userId',userId)
-
-
   const [changeLogin, setChangeLogin] = useState('');
   const [fileUrl, setFileUrl] = useState("");
   const [fileId, setFileId] = useState('');

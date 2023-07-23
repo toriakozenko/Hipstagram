@@ -14,8 +14,8 @@ function ExplorePosts() {
   
     useEffect(() => {
       async function fetchData() {
-        const allPosts = await dispatch(actionAllPosts(skipPosts, POSTS_LIMIT));
-       dispatch(actionSetPosts(allPosts));
+      const allPosts = await dispatch(actionAllPosts(skipPosts, POSTS_LIMIT));
+      dispatch(actionSetPosts(allPosts));
       }
       fetchData()
     },[dispatch])

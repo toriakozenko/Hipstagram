@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { actionEditPost } from '../../../api/posts';
 import FilesUploader from '../../createNewPost/components/FilesUploader';
 
@@ -10,8 +10,11 @@ function EditPost() {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const location = useLocation();
   const postId = location?.state || null;
+  const navigate = useNavigate();
+  const userId = useSelector(state => state?.auth?.payload?.sub?.id);
 
  const dispatch = useDispatch();
+
 
  const handleFileUpload = (id, url) => {
   setUploadedFiles((prevUploadedFiles) => [
@@ -23,7 +26,8 @@ function EditPost() {
 const handleEditPost = () => {
   if (title.trim() !== '' && text.trim() !== ''  && uploadedFiles.length > 0) {
     const files = uploadedFiles.map(({ id }) => ({ _id: id }));
-    dispatch(actionEditPost(postId, title, text, files )); 
+    dispatch(actionEditPost(postId, title, text, files ));
+    navigate(`/profile/${userId}`); 
   }
 };
 
