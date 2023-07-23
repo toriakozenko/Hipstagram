@@ -3,10 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { actionCreateComment } from "../../../api/comment";
 import { actionCreateLike } from "../../../api/likes";
-import { actionPostDelete, actionUserPosts } from "../../../api/posts";
-import iconComment from '../../../assets/images/icons/HomePage/icon-comment.svg';
+import { actionPostDelete } from "../../../api/posts";
 import iconLike from '../../../assets/images/icons/HomePage/icon-like.svg';
-import iconShare from '../../../assets/images/icons/HomePage/icon-share.svg';
 import likeClicked from '../../../assets/images/icons/HomePage/likeClicked.svg';
 import noAvatarPhoto from '../../../assets/images/icons/HomePage/no-avatar.svg';
 import noImagePhoto from '../../../assets/images/icons/HomePage/no-image.png';
@@ -57,7 +55,11 @@ function PostSmall({post}) {
 	const handleCreateComment = async () => {
 		if (comment.trim() !== '') {
 			await dispatch(actionCreateComment(post._id, comment));
-			setIsComment(prevState => [...prevState, {owner:{_id: userId, login: userLogin }, text: comment}]);
+			console.log('comment', comment)
+			post.comments !== null ? 
+			setIsComment(prevState => [...prevState, {owner:{_id: userId, login: userLogin }, text: comment}]) : 
+			setIsComment([{ owner: { _id: userId, login: userLogin }, text: comment }])
+
 			setComment('');
 		}	
 	};

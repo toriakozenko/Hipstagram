@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionEditUserPage } from "../../../api/users";
 import FilesUploader from "../../createNewPost/components/FilesUploader";
+import { useNavigate } from "react-router-dom";
 
 function EditProfilePage() {
 
@@ -9,12 +10,13 @@ function EditProfilePage() {
   const [changeLogin, setChangeLogin] = useState('');
   const [fileUrl, setFileUrl] = useState("");
   const [fileId, setFileId] = useState('');
- 
- const dispatch = useDispatch();
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
   const handleEditUser = () => {
     if (changeLogin.trim() !== '' && changeLogin.trim() !== '' && fileId && fileUrl) {
       dispatch(actionEditUserPage(userId, changeLogin, fileId));
+      navigate(`/profile/${userId}`); 
     }
   };
 
