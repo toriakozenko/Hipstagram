@@ -14,7 +14,8 @@ import './style.scss';
 function UserProfile() {
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
-  const [followersCount, setFollowersCount] = useState(0);
+  const [isUserFollow, setIsUserFollow] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const { userId } = useParams();
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ function UserProfile() {
   const { login, id } = useSelector(state => state?.auth?.payload?.sub);
 
   const { status, payload } = oneUser || {};
+
+  const [followersCount, setFollowersCount] = useState(payload?.followers?.length);
+  console.log('payload?.followers?.length', payload?.followers?.length);
 
   const { payload: posts } = userPosts || {};
 
@@ -42,13 +46,11 @@ function UserProfile() {
   useEffect(() => {
     dispatch(actionOneUser(userId));
     dispatch(actionUserPosts(userId));
-    setFollowersCount(payload?.followers?.length)
   }, [userId, dispatch]);
 
 
-  const handleFollowers = (count) => {
+  const handleFollowers = () => {
     setShowFollowers(true);
-    setFollowersCount(() => (count + 1))
   };
 
   const handleCloseFollowers = () => {
@@ -65,8 +67,15 @@ function UserProfile() {
 
   const handleSubscribe = () => {
     dispatch(actionSubscribe(id, login,oldUserId, userId));
+    setIsButtonDisabled(true);
+    setFollowersCount(followersCount => followersCount + 1);
+    setIsUserFollow(prevFollow => !prevFollow);
+    
 	}
 
+  useEffect(() => {
+    setFollowersCount(payload?.followers?.length);
+  }, [payload?.followers]);
 
   return (
     !status || status === "PENDING" || !payload || !posts ? <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626'}} />
@@ -83,14 +92,14 @@ function UserProfile() {
             <div className="editing-block">
               <span>{payload.login !== ''  ? payload.login : 'anonim' }</span>
 
-              <button onClick={handleSubscribe}>{(followerLogin && followerLogin?.includes(login) ? 'Unfollow' : 'Follow')}</button>
+              <button onClick={handleSubscribe} disabled={isButtonDisabled}>{isUserFollow || (followerLogin && followerLogin?.includes(login)) ? 'Unfollow' : 'Follow'}</button>
 
             </div>
 
             <div className="follow-container">
               {posts && posts.length ? (<span>{posts.length} posts</span>) : (<span>0 posts</span>)}
               <div className="followers-container">
-                {payload?.followers && payload?.followers?.length ? (<span  onClick={() => handleFollowers(payload?.followers?.length)}>{payload.followers.length || 0} followers</span>) : <span>0 followers</span>}
+                {payload?.followers && payload?.followers?.length ? (<span  onClick={handleFollowers}>{followersCount} followers</span>) : <span>0 followers</span>}
 
                 {showFollowers && (
                   <div className="popup-container">
