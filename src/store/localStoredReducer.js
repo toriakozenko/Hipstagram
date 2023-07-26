@@ -2,7 +2,8 @@ export function localStoredReducer(originalReducer, localStorageKey) {
   function wrapper(state, action) {
     if (state === undefined) {
       try {
-        return JSON.parse(localStorage[localStorageKey]);
+        const storedState = localStorage[localStorageKey];
+        return storedState ? JSON.parse(storedState) : undefined;
       }
       catch(error){
         console.log(error)

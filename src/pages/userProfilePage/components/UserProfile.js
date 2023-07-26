@@ -14,14 +14,14 @@ import './style.scss';
 function UserProfile() {
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
+  const [followersCount, setFollowersCount] = useState(0);
 
- 
   const { userId } = useParams();
   const dispatch = useDispatch();
 
-  const oneUser = useSelector(state => state.promise.oneUser);
+  const oneUser = useSelector(state => state?.promise?.oneUser);
   
-  const userPosts = useSelector(state => state.promise.userPosts);
+  const userPosts = useSelector(state => state?.promise?.userPosts);
 
   const { login, id } = useSelector(state => state?.auth?.payload?.sub);
 
@@ -33,6 +33,7 @@ function UserProfile() {
   const { payload: newPayload } = userProfile || {};
 
   const oldUserId = newPayload?.following?.map(item => item._id) || [];
+  const followerLogin = payload?.followers?.map(item => item.login);
 
   useEffect(() => {
     dispatch(actionUserProfile(id));
@@ -41,11 +42,13 @@ function UserProfile() {
   useEffect(() => {
     dispatch(actionOneUser(userId));
     dispatch(actionUserPosts(userId));
+    setFollowersCount(payload?.followers?.length)
   }, [userId, dispatch]);
 
 
-  const handleFollowers = () => {
+  const handleFollowers = (count) => {
     setShowFollowers(true);
+    setFollowersCount(() => (count + 1))
   };
 
   const handleCloseFollowers = () => {
@@ -64,7 +67,6 @@ function UserProfile() {
     dispatch(actionSubscribe(id, login,oldUserId, userId));
 	}
 
-  const followerLogin = payload?.followers?.map(item => item.login);
 
   return (
     !status || status === "PENDING" || !payload || !posts ? <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626'}} />
@@ -88,7 +90,7 @@ function UserProfile() {
             <div className="follow-container">
               {posts && posts.length ? (<span>{posts.length} posts</span>) : (<span>0 posts</span>)}
               <div className="followers-container">
-                {payload.followers && payload.followers.length ? (<span  onClick={handleFollowers}>{payload.followers.length} followers</span>) : <span>0 followers</span>}
+                {payload?.followers && payload?.followers?.length ? (<span  onClick={() => handleFollowers(payload?.followers?.length)}>{payload.followers.length} followers</span>) : <span>0 followers</span>}
 
                 {showFollowers && (
                   <div className="popup-container">

@@ -34,7 +34,7 @@ const actionRejected = (name, error) => {
   return {
     type: 'PROMISE', 
     status: 'REJECTED',  
-    error, 
+    error: error.message, 
     name 
   }
 };

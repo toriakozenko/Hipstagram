@@ -12,6 +12,7 @@ function SignUp() {
 
   const state = useSelector((state) => state.promise);
   const { status, payload } = state?.registration || {};
+  console.log('payload', payload)
 
   const dispatch = useDispatch();
 
@@ -38,7 +39,7 @@ function SignUp() {
   }
 
   useEffect(() => {
-    if (status === 'FULFILLED' && payload) {
+    if (status === 'FULFILLED' && payload && payload?._id && payload?.login) {
       alert(`User successfully registered!`);
       dispatch(actionFullLogin(payload));
       navigate("/");

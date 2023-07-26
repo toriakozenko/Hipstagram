@@ -55,11 +55,9 @@ function PostSmall({post}) {
 	const handleCreateComment = async () => {
 		if (comment.trim() !== '') {
 			await dispatch(actionCreateComment(post._id, comment));
-			console.log('comment', comment)
 			post.comments !== null ? 
 			setIsComment(prevState => [...prevState, {owner:{_id: userId, login: userLogin }, text: comment}]) : 
 			setIsComment([{ owner: { _id: userId, login: userLogin }, text: comment }])
-
 			setComment('');
 		}	
 	};
