@@ -1,19 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import hipstagramLogo from '../../../../assets/images/logo/Hipstagram-logo.png';
-import { actionFullLogin, actionFullRegister } from '../../../../store/authReducer';
+import { actionFullRegister } from '../../../../store/authReducer';
 import './style.scss';
 
 function SignUp() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
-
-  const state = useSelector((state) => state.promise);
-  const { status, payload } = state?.registration || {};
-  console.log('payload', payload)
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   function listenLoginInputChange(event){
@@ -26,28 +22,22 @@ function SignUp() {
     setPassword(value);
   }
   
-  const navigate = useNavigate();
 
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault();
 
     if (!login || !password) {
       setButtonDisabled(true);
       return;
     }
-    dispatch(actionFullRegister(login, password));
-  }
-
-  useEffect(() => {
-    if (status === 'FULFILLED' && payload && payload?._id && payload?.login) {
+    const response =  await dispatch(actionFullRegister(login, password));
+    if ( response) {
       alert(`User successfully registered!`);
-      dispatch(actionFullLogin(payload));
       navigate("/");
-    } else if (status === 'FULFILLED' && !payload) {
+    } else {
       alert(`This username already exists!`);
     }
-  }, [status, payload, dispatch, navigate]);
-
+  }
   
   return (
     <div className='signUp-container'>

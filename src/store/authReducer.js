@@ -1,5 +1,5 @@
 import jwt_decode from "jwt-decode";
-import { actionRegister,actionLogin } from "../api/auth";
+import { actionLogin, actionRegister } from "../api/auth";
 
 
 export function authReducer(state = {}, {type, token}) {
@@ -51,8 +51,10 @@ export const actionFullLogin = (login, password) => {
 
 export const actionFullRegister = (login, password) => {
   return async dispatch => {
-    await dispatch(actionRegister(login, password));
-    dispatch(actionFullLogin(login, password));
+    const response = await dispatch(actionRegister(login, password));
+    if(response) {
+      dispatch(actionFullLogin(login, password));
+    }
+    return response;
   }
 };
-
