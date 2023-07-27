@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionEditUserPage } from "../../../api/users";
 import FilesUploader from "../../createNewPost/components/FilesUploader";
 import { useNavigate } from "react-router-dom";
+import './style.scss';
 
 function EditProfilePage() {
 
@@ -26,7 +27,7 @@ function EditProfilePage() {
   };
  
   return (
-    <div className='newPost-wrapper'>
+    <div className='newPost-wrapper' id="editPost">
       <div className='newPost-container'> 
       <h2>Edit your profile</h2>
 

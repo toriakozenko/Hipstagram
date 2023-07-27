@@ -28,8 +28,24 @@ function UserProfile() {
 
   const { status, payload } = oneUser || {};
 
-  const [followersCount, setFollowersCount] = useState(payload?.followers?.length);
+
+
+  const [followersCount, setFollowersCount] = useState((payload && payload.followers && payload.followers.length) || 0);
   console.log('payload?.followers?.length', payload?.followers?.length);
+  console.log('followersCount', followersCount);
+
+  const handleSubscribe = () => {
+    dispatch(actionSubscribe(id, login,oldUserId, userId));
+    setIsButtonDisabled(true);
+    setFollowersCount(followersCount => followersCount + 1);
+    setIsUserFollow(prevFollow => !prevFollow);
+    
+	}
+
+  useEffect(() => {
+    setFollowersCount(payload?.followers?.length);
+  }, [payload?.followers]);
+
 
   const { payload: posts } = userPosts || {};
 
@@ -65,17 +81,17 @@ function UserProfile() {
     setShowFollowing(false);
   };
 
-  const handleSubscribe = () => {
-    dispatch(actionSubscribe(id, login,oldUserId, userId));
-    setIsButtonDisabled(true);
-    setFollowersCount(followersCount => followersCount + 1);
-    setIsUserFollow(prevFollow => !prevFollow);
+  // const handleSubscribe = () => {
+  //   dispatch(actionSubscribe(id, login,oldUserId, userId));
+  //   setIsButtonDisabled(true);
+  //   setFollowersCount(followersCount => followersCount + 1);
+  //   setIsUserFollow(prevFollow => !prevFollow);
     
-	}
+	// }
 
-  useEffect(() => {
-    setFollowersCount(payload?.followers?.length);
-  }, [payload?.followers]);
+  // useEffect(() => {
+  //   setFollowersCount(payload?.followers?.length);
+  // }, [payload?.followers]);
 
   return (
     !status || status === "PENDING" || !payload || !posts ? <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626'}} />
