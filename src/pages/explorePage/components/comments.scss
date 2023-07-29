@@ -2,6 +2,15 @@
   display: flex;
   margin-bottom: 10px;
 
+  .comment-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 18px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  
   .comments-owner {
     font-weight: bold;
     padding-right: 6px;
@@ -14,6 +23,17 @@
     padding-left: 6px;
     text-align: start;
     
+  }
+
+  
+
+  .comments-date {
+    font-weight: lighter;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+    margin-left: 55px;
+    margin-top: 10px;
+    margin-bottom: 15px;
   }
 
   

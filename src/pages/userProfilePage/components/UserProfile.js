@@ -14,7 +14,6 @@ import './style.scss';
 function UserProfile() {
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
-  const [isUserFollow, setIsUserFollow] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const { userId } = useParams();
@@ -28,18 +27,13 @@ function UserProfile() {
 
   const { status, payload } = oneUser || {};
 
-
-
   const [followersCount, setFollowersCount] = useState((payload && payload.followers && payload.followers.length) || 0);
-  console.log('payload?.followers?.length', payload?.followers?.length);
-  console.log('followersCount', followersCount);
-
+ 
   const handleSubscribe = () => {
     dispatch(actionSubscribe(id, login,oldUserId, userId));
     setIsButtonDisabled(true);
-    setFollowersCount(followersCount => followersCount + 1);
+    setFollowersCount(followersCount => followersCount ? isUserFollow ? followersCount - 1 : followersCount + 1 : 1);
     setIsUserFollow(prevFollow => !prevFollow);
-    
 	}
 
   useEffect(() => {
@@ -54,6 +48,7 @@ function UserProfile() {
 
   const oldUserId = newPayload?.following?.map(item => item._id) || [];
   const followerLogin = payload?.followers?.map(item => item.login);
+  const [isUserFollow, setIsUserFollow] = useState(followerLogin?.includes(login));
 
   useEffect(() => {
     dispatch(actionUserProfile(id));
@@ -81,18 +76,6 @@ function UserProfile() {
     setShowFollowing(false);
   };
 
-  // const handleSubscribe = () => {
-  //   dispatch(actionSubscribe(id, login,oldUserId, userId));
-  //   setIsButtonDisabled(true);
-  //   setFollowersCount(followersCount => followersCount + 1);
-  //   setIsUserFollow(prevFollow => !prevFollow);
-    
-	// }
-
-  // useEffect(() => {
-  //   setFollowersCount(payload?.followers?.length);
-  // }, [payload?.followers]);
-
   return (
     !status || status === "PENDING" || !payload || !posts ? <CircularProgress size={60} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  margin: 'auto', color: '#262626'}} />
     : 
@@ -115,7 +98,8 @@ function UserProfile() {
             <div className="follow-container">
               {posts && posts.length ? (<span>{posts.length} posts</span>) : (<span>0 posts</span>)}
               <div className="followers-container">
-                {payload?.followers && payload?.followers?.length ? (<span  onClick={handleFollowers}>{followersCount} followers</span>) : <span>0 followers</span>}
+
+                <span onClick={handleFollowers}>{followersCount ? followersCount : 0} followers</span>
 
                 {showFollowers && (
                   <div className="popup-container">

@@ -34,7 +34,7 @@ function ExplorePosts() {
           dataLength={posts?.length}
           next={fetchMorePosts}
           hasMore={true}
-          loader={<h4>Loading...</h4>}
+          loader={<h4 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</h4>}
         >
           {posts.map((post, index) => (
             <PostSmall key={index} post={post} />

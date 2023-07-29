@@ -14,10 +14,9 @@ import PostCarousel from "./PostCarousel";
 
 function PostSmall({post}) {
 	const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(post.likes.length);
+  const [likeCount, setLikeCount] = useState(post?.likes?.length);
 
-	const [isComment, setIsComment] = useState(post.comments);
-
+	const [isComment, setIsComment] = useState(post?.comments);
 	const [comment, setComment] = useState('');
 
 	const dispatch = useDispatch();
@@ -52,19 +51,19 @@ function PostSmall({post}) {
 		}
 	}
 
-	const handleCreateComment = async () => {
+ const handleCreateComment = async () => {
 		if (comment.trim() !== '') {
-			await dispatch(actionCreateComment(post._id, comment));
-			post.comments !== null ? 
-			setIsComment(prevState => [...prevState, {owner:{_id: userId, login: userLogin }, text: comment}]) : 
-			setIsComment([{ owner: { _id: userId, login: userLogin }, text: comment }])
+			const newComment = await dispatch(actionCreateComment(post._id, comment));
+			setIsComment(prevState => (prevState ? [...prevState, newComment] : [newComment]));
 			setComment('');
-		}	
-	};
+		}
+  };
 
   const handleDeletePost = () => {
-		dispatch(actionPostDelete(post._id))
+		dispatch(actionPostDelete(post._id));
+		window.location.reload();
   }
+
   return (
 		
     <li className="post-card" >
@@ -104,8 +103,6 @@ function PostSmall({post}) {
 				
 				</div>
 
-				
-
 				<div className='post-text'>
 					<div className="post-text-wrapper">
 						<span className="post-owner">{post.owner.login}</span>
@@ -116,14 +113,14 @@ function PostSmall({post}) {
 			</div>
 
 			<div className="comments-container">
-			<div className="add-comment-container">
-			<input placeholder='Add a comment...' type="text" value={comment} onChange={e => {
-          setComment(e.target.value);
-        }}/>
-				<span>{post?.comments?.text}</span>
-				<button onClick={handleCreateComment}>Post</button>
-			</div>
 				<CommentsList comments={isComment} />
+				<div className="add-comment-container">
+					<input placeholder='Add a comment...' type="text" value={comment} onChange={e => {
+						setComment(e.target.value);
+					}}/>
+					<span>{post?.comments?.text}</span>
+					<button onClick={handleCreateComment}>Post</button>
+				</div>
 			</div>
     </li>
    );

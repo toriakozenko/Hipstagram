@@ -44,7 +44,7 @@ function FollowingPost() {
               dataLength={posts?.length}
               next={fetchMorePosts}
               hasMore={true}
-              loader={<h4>Loading...</h4>}
+              loader={<h4 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</h4>}
             >
               {posts?.map((post, index)=><PostSmall post={post} key={index} />)}
             </InfiniteScroll>

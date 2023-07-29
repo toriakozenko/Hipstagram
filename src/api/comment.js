@@ -11,6 +11,12 @@ actionPromise('comment',
       post {
         _id
       }
+      owner {
+        login
+        avatar {
+          url
+        }
+      }
     }
   }`, { comment: {
       "text": text, 

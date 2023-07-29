@@ -23,9 +23,13 @@ gql(`query posts($q: String) {
       comments {
         _id
         text
+        createdAt
         owner {
           _id
           login
+          avatar {
+            url
+          }
         }
       }
       likes {
@@ -61,9 +65,13 @@ actionPromise('userPosts',
         comments {
           _id
           text
+          createdAt
           owner {
             _id
             login
+            avatar {
+              url
+            }
           }
         }
         likes {
@@ -99,9 +107,13 @@ actionPromise('userPosts',
         comments {
           _id
           text
+          createdAt
           owner {
             _id
             login
+            avatar {
+              url
+            }
           }
         }
         likes {
