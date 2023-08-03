@@ -91,7 +91,7 @@ function UserProfile() {
             <div className="editing-block">
               <span>{payload.login !== ''  ? payload.login : 'anonim' }</span>
 
-              <button onClick={handleSubscribe} disabled={isButtonDisabled}>{isUserFollow || (followerLogin && followerLogin?.includes(login)) ? 'Unfollow' : 'Follow'}</button>
+              <button onClick={handleSubscribe} disabled={isButtonDisabled} style={{opacity: followerLogin?.includes(login) ? '0.6' : '1'}}>{isUserFollow || (followerLogin && followerLogin?.includes(login)) ? 'Unfollow' : 'Follow'}</button>
 
             </div>
 
