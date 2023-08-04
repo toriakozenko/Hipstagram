@@ -1,7 +1,6 @@
 import { gql } from "../Gql";
 import { actionPromise } from "../store/actionPromise";
 
-
 export const actionRegister = (login, password, nick) =>
   actionPromise('registration', 
     gql (`mutation Reg($login: String!, $password: String!) {
@@ -18,6 +17,5 @@ export const actionRegister = (login, password, nick) =>
         login(login:$login, password:$password)
     }`, {'login':login, 'password':password})
   );
-
 
 
