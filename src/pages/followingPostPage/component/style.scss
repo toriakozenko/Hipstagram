@@ -1,0 +1,15 @@
+
+.following-posts {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  .post-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 500px;
+  }
+}
+

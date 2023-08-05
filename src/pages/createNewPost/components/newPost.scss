@@ -1,0 +1,75 @@
+$width: 100%;
+$border-radius: 5px;
+$border: 1px solid rgb(219, 219, 219);
+$color: #1877F2;
+
+
+.newPost-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: $width;
+    height: 99vh;
+    overflow: auto;
+    margin: 20px 0;
+
+
+    .newPost-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-bottom: 40px;
+      width: $width;
+      height: 100%;
+      max-width: 750px;
+      max-height: 750px;
+      border: $border;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 16px 20px rgba(0, 0, 0, 0.2);
+
+      h2 {
+        display: flex;
+        justify-content: center;
+        border-bottom: $border;
+        padding: 6px;
+      }
+
+      .input-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        input {
+          width: $width;
+          max-width: 600px;
+          height: 50px;
+          text-align: center;
+          margin-bottom: 20px;
+          border-radius: $border-radius;
+        }
+
+        button {
+          display: inline-block;
+          padding: 10px 20px;
+          border-radius: $border-radius;
+          font-size: 16px;
+          background-color: $color;
+          color: #fff;
+          text-decoration: none;
+          cursor: pointer;
+        
+          &:hover {
+            background-color: darken($color, 10%);
+          }
+        
+          &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba($color, 0.5);
+          }
+        }
+    }
+
+
+    }
+    
+}
+
