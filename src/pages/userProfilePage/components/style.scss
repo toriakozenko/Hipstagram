@@ -1,5 +1,3 @@
-
-  
 .profile-container {
   width: 100%;
   height: 100%;
@@ -30,6 +28,7 @@
         .editing-block {
           padding: 0 20px;
         }
+
         .editing-block, .follow-container  {
           display: flex;
           justify-content: space-between;
@@ -42,11 +41,9 @@
           align-items: flex-start;
         }
         
-        
         span {
           font-weight: 400;
-          font-size: 20px;
-          
+          font-size: 20px; 
         }
 
         button { 
@@ -77,9 +74,6 @@
             gap: 20px;
           }
         }
-
-       
-
       }  
     }
 
@@ -91,16 +85,15 @@
       .posts-list {
         display: flex;
         flex-wrap: wrap;
-        gap: 30px;
+        align-items: center;
         justify-content: center;
+        gap: 30px;
         width: 100%;
 
         .post-card {
           margin-bottom: 0;
           height: auto;
         }
-        
       }
     }
- 
 }
