@@ -5,7 +5,9 @@ import { useParams } from "react-router-dom";
 import { actionSubscribe } from "../../../api/follow";
 import { actionUserPosts } from "../../../api/posts";
 import { actionOneUser, actionUserProfile } from "../../../api/users";
-import IconNoAvatar from "../../../assets/convertedIcons/IconNoAvatar";
+// import IconNoAvatar from "../../../assets/convertedIcons/IconNoAvatar";
+import Face3Icon from '@mui/icons-material/Face3';
+
 import { API_URL } from "../../../constants/Api_Graphql";
 import PostSmall from "../../explorePage/components/PostSmall";
 import './style.scss';
@@ -84,7 +86,7 @@ function UserProfile() {
       <div className="profile-container">
         <div className="profile-wrapper">
 
-          {payload.avatar && payload.avatar.url !== null ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : <IconNoAvatar />}
+          {payload.avatar && payload.avatar.url !== null ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : <Face3Icon />}
           
 
           <div className="profile-info-container">

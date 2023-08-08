@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { actionUserPosts } from "../../../api/posts";
 import { actionUserProfile } from "../../../api/users";
-import IconNoAvatar from "../../../assets/convertedIcons/IconNoAvatar";
+// import IconNoAvatar from "../../../assets/convertedIcons/IconNoAvatar";
+import Face3Icon from '@mui/icons-material/Face3';
 import { API_URL } from "../../../constants/Api_Graphql";
 import PostSmall from "../../explorePage/components/PostSmall";
 import './style.scss';
@@ -55,7 +56,7 @@ function Profile() {
       <div className="profile-container">
         <div className="profile-wrapper">
 
-          {payload.avatar && payload.avatar.url !== null ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : <IconNoAvatar />}
+          {payload.avatar && payload.avatar.url !== null ? (<img className="avatar" src={`${API_URL}/${payload?.avatar?.url}`} alt="avatar" />) : <Face3Icon />}
           
           <div className="profile-info-container">
             <div className="editing-block">

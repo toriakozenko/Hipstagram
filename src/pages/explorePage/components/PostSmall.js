@@ -6,7 +6,9 @@ import { actionCreateLike } from "../../../api/likes";
 import { actionPostDelete } from "../../../api/posts";
 import IconLike from '../../../assets/convertedIcons/IconLike';
 import IconLikeClicked from '../../../assets/convertedIcons/IconLikeClicked';
-import IconNoAvatar from "../../../assets/convertedIcons/IconNoAvatar";
+// import noAvatar from "../../../assets/images/icons/HomePage/no-avatar.svg";
+// import IconNoAvatar from "../../../assets/convertedIcons/IconNoAvatar";
+import Face3Icon from '@mui/icons-material/Face3';
 import noImagePhoto from '../../../assets/images/icons/HomePage/no-image.png';
 import { API_URL } from "../../../constants/Api_Graphql";
 import CommentsList from "./CommentsList";
@@ -27,8 +29,6 @@ function PostSmall({post}) {
 		navigate(`/users/${id}`);
 	}
 	const userId = useSelector(state => state?.auth?.payload?.sub?.id);
-	const userLogin = useSelector(state => state?.auth?.payload?.sub?.login);
-
 	
 	useEffect(() => {
 		const likedByUser = post.likes.some((like) => like.owner._id === userId);
@@ -70,7 +70,7 @@ function PostSmall({post}) {
 			
 			<div className="info">
 				<div className="left-content" onClick={() => navigateToProfile(post.owner._id)}>
-					{post.owner.avatar ? (<img className="avatar" src={`${API_URL}/${post?.owner?.avatar?.url}`} alt="avatar" />) : <IconNoAvatar />}
+					{post.owner.avatar ? (<img className="avatar" src={`${API_URL}/${post?.owner?.avatar?.url}`} alt="avatar" />) : <Face3Icon />}
 					<span>{post.owner.login}</span>
 					<span className="post-date">{new Date(+post.createdAt).toLocaleString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric'})}
 					</span> 

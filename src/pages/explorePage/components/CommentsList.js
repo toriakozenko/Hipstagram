@@ -5,15 +5,10 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Comment from './Comment';
 
 function CommentsList({comments}) {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const handleAccordionClick = () => {
-    setIsExpanded(!isExpanded);
-  };
   return ( 
   
     comments && comments.length ? 
-    <Accordion sx={{ border: 'transparent'}} expanded={isExpanded} onChange={handleAccordionClick}>
+    <Accordion sx={{ border: 'transparent'}}>
       
     <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{  fontWeight: 'light', fontSize: 14 }}>
       View all comments

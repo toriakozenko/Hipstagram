@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { actionGetUserByLogin } from "../../../api/users";
-import IconNoAvatar from "../../../assets/convertedIcons/IconNoAvatar";
+// import IconNoAvatar from "../../../assets/convertedIcons/IconNoAvatar";
+import Face3Icon from '@mui/icons-material/Face3';
+
 import { API_URL } from "../../../constants/Api_Graphql";
 import './style.scss';
 
@@ -31,7 +33,7 @@ function UserSearch() {
         payload.length ?
         payload.map(item => (
           <div className="searchResult" key={item._id} onClick={() => navigateToProfile(item._id)}>
-              {item.avatar && item.avatar.url !== null ? (<img src={`${API_URL}/${item?.avatar?.url}`} alt="avatar" />) : <IconNoAvatar />}
+              {item.avatar && item.avatar.url !== null ? (<img src={`${API_URL}/${item?.avatar?.url}`} alt="avatar" />) : <Face3Icon />}
             {item.login ? <span>{item.login}</span> : "anonimus"}
           </div>
         )) : "No recent searches." 
